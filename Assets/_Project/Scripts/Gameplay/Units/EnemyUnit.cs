@@ -7,7 +7,11 @@ namespace ShroomDefense.Gameplay
     {
         public void Advance()
         {
-            Move(Position + Vector2Int.left);
+            var movePosition = Position + Vector2Int.left;
+            if (_battleMap.ValidatePosition(movePosition))
+            {
+                Move(movePosition);
+            }
         }
 
         public override void ExecuteAction()
