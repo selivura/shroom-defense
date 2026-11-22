@@ -41,7 +41,7 @@ namespace ShroomDefense.Gameplay
                     break;
                 }
 
-                int column = LevelData.FurthestEnemyColumn;
+                int column = LevelData.FurthestEnemyColumn + 1;
                 if (_battleMap.Rows[i].Units.ContainsKey(column))
                 {
                     continue;
