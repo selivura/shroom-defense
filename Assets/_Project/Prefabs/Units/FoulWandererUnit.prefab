@@ -105,10 +105,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 340a7212fe8e09e4b88052ab11d5301f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShroomDefense.FoulWandererUnit
-  _currentHP: 100
-  _maxHP: 100
-  _currentAttack: 100
-  _maxAttack: 100
+  _currentHP: 1
+  _maxHP: 1
+  _currentAttack: 1
+  _maxAttack: 1
   OnUnitDeath:
     m_PersistentCalls:
       m_Calls: []

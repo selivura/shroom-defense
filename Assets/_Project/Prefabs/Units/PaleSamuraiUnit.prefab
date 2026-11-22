@@ -105,10 +105,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fba74e472c553d24c91e771d985ebd1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShroomDefense.PaleSamuraiUnit
-  _currentHP: 100
-  _maxHP: 100
-  _currentAttack: 100
-  _maxAttack: 100
+  _currentHP: 3
+  _maxHP: 3
+  _currentAttack: 5
+  _maxAttack: 5
   OnUnitDeath:
     m_PersistentCalls:
       m_Calls: []

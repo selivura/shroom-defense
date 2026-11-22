@@ -105,10 +105,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7acbd47b1a551648bd8e6407b933724, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShroomDefense.Gameplay.EnemyUnit
-  _currentHP: 100
-  _maxHP: 100
-  _currentAttack: 100
-  _maxAttack: 100
+  _currentHP: 4
+  _maxHP: 4
+  _currentAttack: 2
+  _maxAttack: 2
   OnUnitDeath:
     m_PersistentCalls:
       m_Calls: []

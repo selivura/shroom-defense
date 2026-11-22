@@ -102,7 +102,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 432867412292601863}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6fc1989b7085d874fbf7851facdbf343, type: 3}
+  m_Script: {fileID: 11500000, guid: 35de13bf46cbc524690bbd9770e13b5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShroomDefense.MushroomUnit
   _currentHP: 5
