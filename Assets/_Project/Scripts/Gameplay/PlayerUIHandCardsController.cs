@@ -24,22 +24,38 @@ namespace ShroomDefense.Gameplay
 
         public void SyncHand(IReadOnlyCollection<Card> hand)
         {
-            int handCount = hand.Count;
-            while (_draggableCards.Count < handCount)
+            foreach (var draggableCard in _draggableCards)
             {
-                var spawnedCard = _resolver.Instantiate(_draggablePrefab);
-                spawnedCard.transform.SetParent(transform, false);
-                _draggableCards.Add(spawnedCard);
+                draggableCard.gameObject.SetActive(false);
             }
 
-            while (_draggableCards.Count > handCount)
+            int i = 0;
+            float centerOffset = (hand.Count - 1) * _cardSpacing * 0.5f;
+            foreach (Card card in hand)
             {
-                int lastIndex = _draggableCards.Count - 1;
-                Destroy(_draggableCards[lastIndex].gameObject);
-                _draggableCards.RemoveAt(lastIndex);
-            }
+                HandCardDraggable draggableCard = null;
 
-            RefreshLayout(hand);
+                for (int poolIndex = 0; poolIndex < _draggableCards.Count; poolIndex++)
+                {
+                    if (!_draggableCards[poolIndex].gameObject.activeSelf)
+                    {
+                        draggableCard = _draggableCards[poolIndex];
+                        break;
+                    }
+                }
+
+                if (draggableCard == null)
+                {
+                    draggableCard = _resolver.Instantiate(_draggablePrefab);
+                    draggableCard.transform.SetParent(transform, false);
+                    _draggableCards.Add(draggableCard);
+                }
+
+                draggableCard.gameObject.SetActive(true);
+                draggableCard.SetCard(i, card);
+                draggableCard.transform.localPosition = new Vector3(i * _cardSpacing - centerOffset, 0f, 0f);
+                i++;
+            }
         }
 
         public bool TryPlayCard(int cardIndex, CardTargetData targetData)
@@ -56,19 +72,5 @@ namespace ShroomDefense.Gameplay
             return _playerController.PlayCardFromHand(cardIndex, targetData);
         }
 
-        private void RefreshLayout(IReadOnlyCollection<Card> hand)
-        {
-            float centerOffset = (_draggableCards.Count - 1) * _cardSpacing * 0.5f;
-            int i = 0;
-
-            foreach (Card card in hand)
-            {
-                var draggableCard = _draggableCards[i];
-                draggableCard.gameObject.SetActive(true);
-                draggableCard.SetCard(i, card);
-                draggableCard.transform.localPosition = new Vector3(i * _cardSpacing - centerOffset, 0f, 0f);
-                i++;
-            }
-        }
     }
 }
