@@ -72,6 +72,14 @@ namespace ShroomDefense.Gameplay
             }
             return true;
         }
+
+        public int DeadPlayerUnitsCount { get; private set; } = 0;
+        public int DeadEnemyUnitsCount { get; private set; } = 0;
+        public void OnUnitDied(Vector2Int position)
+        {
+            if (position.x < 0) DeadPlayerUnitsCount++;
+            else if (position.x > 0) DeadEnemyUnitsCount++;
+        }
     }
 
     [Serializable]

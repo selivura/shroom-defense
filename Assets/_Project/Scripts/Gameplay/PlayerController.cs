@@ -112,5 +112,21 @@ namespace ShroomDefense.Gameplay
         {
             Debug.Log("Player has died.");
         }
+
+
+        public void IncreaseMaxMana(int amount)
+        {
+            MaxMana += amount;
+        }
+
+        public void DecreaseMaxMana(int amount)
+        {
+            MaxMana = Mathf.Max(0, MaxMana - amount);
+
+            if (CurrentMana > MaxMana)
+            {
+                CurrentMana = MaxMana;
+            }
+        }
     }
 }

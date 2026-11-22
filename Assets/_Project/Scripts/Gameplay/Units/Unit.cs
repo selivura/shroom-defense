@@ -6,11 +6,13 @@ using VContainer;
 
 namespace ShroomDefense.Gameplay
 {
-    public abstract class Unit : MonoBehaviour, IDamageable
+    public abstract class Unit : MonoBehaviour, IDamageable, IDamageSource
     {
         [SerializeField] private int _currentHP = 100;
         [SerializeField] private int _maxHP = 100;
-
+        [SerializeField] private int _currentAttack = 100;
+        [SerializeField] private int _maxAttack = 100;
+        private bool _isShielded;
         private Vector2Int _position;
         private bool _isPositionDirty = true;
         public Vector2Int Position
@@ -50,6 +52,19 @@ namespace ShroomDefense.Gameplay
             private set => _maxHP = Mathf.Max(value, 0);
         }
 
+
+        public int CurrentAttack
+        {
+            get => _currentAttack;
+            private set => _currentAttack = Mathf.Clamp(value, 0, _maxAttack);
+        }
+
+        public int MaxAttack
+        {
+            get => _maxAttack;
+            private set => _maxAttack = Mathf.Max(value, 0);
+        }
+
         public UnityEvent OnUnitDeath;
 
         protected BattleMap _battleMap;
@@ -62,6 +77,11 @@ namespace ShroomDefense.Gameplay
         public abstract void ExecuteAction();
         public void TakeDamage(Damage damage)
         {
+            if (_isShielded)
+            {
+                _isShielded = false; // Щит ломается и поглощает весь урон
+                return;
+            }
             CurrentHP -= damage.Amount;
             if (CurrentHP <= 0)
             {
@@ -71,6 +91,7 @@ namespace ShroomDefense.Gameplay
 
         private void Die()
         {
+            _battleMap.OnUnitDied(Position);
             _battleMap.ClearCell(Position);
             gameObject.SetActive(false);
             OnUnitDeath.Invoke();
@@ -88,6 +109,40 @@ namespace ShroomDefense.Gameplay
             _battleMap.PlaceUnitAt(newCoords, this);
 
             _isPositionDirty = true;
+        }
+
+        public bool IsShielded => _isShielded;
+        public void AddShield()
+        {
+            _isShielded = true;
+        }
+
+        public void Heal(int amount)
+        {
+            if (CurrentHP <= 0)
+            {
+                return; 
+            }
+            CurrentHP += amount;
+        }
+        public void BuffAttack(int amount)
+        {
+            CurrentAttack += amount;
+        }
+
+        public void DebuffAttack(int amount)
+        {
+            if (CurrentAttack - amount <= 0)
+            {
+                return;
+            }
+            CurrentAttack -= amount;
+        }
+
+        public void BuffMaxHP(int amount)
+        {
+            MaxHP += amount;
+            CurrentHP += amount;
         }
     }
 }
