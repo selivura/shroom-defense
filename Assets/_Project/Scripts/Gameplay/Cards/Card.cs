@@ -7,6 +7,7 @@ namespace ShroomDefense.Gameplay
     {
         protected BattleMap battleMap;
         public Sprite CardIcon;
+        [field: SerializeField] public int ManaCost { get; private set; } = 1;
 
         [Inject]
         public void Construct(BattleMap battleMap)
@@ -14,6 +15,10 @@ namespace ShroomDefense.Gameplay
             this.battleMap = battleMap;
         }
         public abstract void ExecuteAction(CardTargetData target);
+        public virtual int GetCurrentCost()
+        {
+            return ManaCost;
+        }
     }
 
     public class CardTargetData

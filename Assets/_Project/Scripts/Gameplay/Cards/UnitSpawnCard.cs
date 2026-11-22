@@ -6,8 +6,8 @@ namespace ShroomDefense.Gameplay
     public class UnitSpawnCard : Card
     {
         [field:SerializeField] public Unit Unit { get; private set; }
-        private UnitFactory _unitFactory;
-        private BattleMap _map;
+        protected UnitFactory _unitFactory;
+        protected BattleMap _map;
 
 
         [Inject]
