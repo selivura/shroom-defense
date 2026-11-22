@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using UnityEngine;
 using VContainer;
 
@@ -8,6 +6,7 @@ namespace ShroomDefense.Gameplay
     public abstract class Card : MonoBehaviour
     {
         protected BattleMap battleMap;
+        public Sprite CardIcon;
 
         [Inject]
         public void Construct(BattleMap battleMap)

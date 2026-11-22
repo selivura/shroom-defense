@@ -15,17 +15,19 @@ namespace ShroomDefense.Input
         }
         internal override void Enable()
         {
+            actions.Player.AddCallbacks(this);
             actions.Player.Enable();
         }
 
         internal override void Disable()
         {
             actions.Player.Disable();
+            actions.Player.RemoveCallbacks(this);
         }
 
         public void OnPointerClick(InputAction.CallbackContext context)
         {
-            if(context.started)
+            if (context.started)
             {
                 OnPointerPressedEvent?.Invoke();
             }
