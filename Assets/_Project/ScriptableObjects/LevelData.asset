@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5eb2f2c1960d8e42b3d072e5b6f52c1, type: 3}
+  m_Name: LevelData
+  m_EditorClassIdentifier: Assembly-CSharp::ShroomDefense.Gameplay.LevelData
+  <RowsNumber>k__BackingField: 3
+  <FurthestEnemyColumn>k__BackingField: 3
+  _waves:
+  - _unitPrefabs:
+    - {fileID: 3970228999806526476, guid: 07b5e3839c70f01429f74ce4624f101c, type: 3}
+    - {fileID: 3970228999806526476, guid: 07b5e3839c70f01429f74ce4624f101c, type: 3}
+    - {fileID: 3970228999806526476, guid: 07b5e3839c70f01429f74ce4624f101c, type: 3}
+    - {fileID: 3970228999806526476, guid: 07b5e3839c70f01429f74ce4624f101c, type: 3}
+  - _unitPrefabs:
+    - {fileID: 3970228999806526476, guid: 07b5e3839c70f01429f74ce4624f101c, type: 3}
+    - {fileID: 3970228999806526476, guid: 07b5e3839c70f01429f74ce4624f101c, type: 3}
+    - {fileID: 3970228999806526476, guid: 07b5e3839c70f01429f74ce4624f101c, type: 3}
+    - {fileID: 3970228999806526476, guid: 07b5e3839c70f01429f74ce4624f101c, type: 3}
