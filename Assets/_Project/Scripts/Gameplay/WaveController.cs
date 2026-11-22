@@ -11,9 +11,9 @@ namespace ShroomDefense.Gameplay
         private UnitFactory _unitFactory;
         public LevelData LevelData;
 
-        [field:SerializeField] public int CurrentWaveIndex { get; private set; } = 0;
+        [field: SerializeField] public int CurrentWaveIndex { get; private set; } = 0;
 
-        private Queue<Unit> _enemyQueue = new();
+        private Queue<Unit> _enemiesForSpawnQueue = new();
 
         [Inject]
         public void Construct(TurnManager turnManager, BattleMap battleMap, UnitFactory unitFactory)
@@ -23,30 +23,48 @@ namespace ShroomDefense.Gameplay
             _battleMap = battleMap;
 
             _turnManager.OnTurnChanged.AddListener(OnTurnChanged);
+            CurrentWaveIndex = -1;
         }
 
         private void OnTurnChanged(TurnType turnType)
         {
-            if(turnType != TurnType.EnemyAdvance) return;
+            if (turnType != TurnType.EnemyAdvance) return;
+            _turnManager.EnemyAdvance();
 
-            foreach (var unitPrefab in LevelData.Waves[CurrentWaveIndex].UnitPrefabs)
+
+            if (_enemiesForSpawnQueue.Count <= 0)
             {
-                _enemyQueue.Enqueue(unitPrefab);
+                CurrentWaveIndex++;
+                if (CurrentWaveIndex >= LevelData.Waves.Count)
+                {
+                    Debug.Log("All waves were passed!");
+                }
+                else foreach (var unitPrefab in LevelData.Waves[CurrentWaveIndex].UnitPrefabs)
+                {
+                    _enemiesForSpawnQueue.Enqueue(unitPrefab);
+                }
+            }
+
+            if (_enemiesForSpawnQueue.Count <= 0)
+            {
+                Debug.Log("All waves enemies are spawned!");
+                _turnManager.FinishActions();
+                return;
             }
 
             for (int i = 0; i < LevelData.RowsNumber; i++)
             {
-                if (_enemyQueue.Count <= 0)
+                if (_enemiesForSpawnQueue.Count <= 0)
                 {
                     break;
                 }
 
-                int column = LevelData.FurthestEnemyColumn + 1;
+                int column = LevelData.FurthestEnemyColumn;
                 if (_battleMap.Rows[i].Units.ContainsKey(column))
                 {
                     continue;
                 }
-                var createdUnit = _unitFactory.Create(_enemyQueue.Dequeue());
+                var createdUnit = _unitFactory.Create(_enemiesForSpawnQueue.Dequeue());
                 _battleMap.PlaceUnitAt(new Vector2Int(column, i), createdUnit);
             }
             _turnManager.FinishActions();

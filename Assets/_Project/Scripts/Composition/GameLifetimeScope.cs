@@ -14,13 +14,15 @@ namespace ShroomDefense
         [SerializeField][Required] private UnitFactory _unitFactory;
         [SerializeField][Required] private PlayerController _playerController;
         [SerializeField][Required] private PlayerUIHandCardsController _playerUIHandCardsController;
+        [SerializeField][Required] private WaveController _waveController;
 
         protected override void Configure(IContainerBuilder builder)
         {
-            builder.RegisterInstance<CardFactory>(_cardFactory);
-            builder.RegisterInstance<UnitFactory>(_unitFactory);
-            builder.RegisterInstance<PlayerController>(_playerController);
-            builder.RegisterInstance<PlayerUIHandCardsController>(_playerUIHandCardsController);
+            builder.RegisterInstance(_cardFactory);
+            builder.RegisterInstance(_unitFactory);
+            builder.RegisterInstance(_playerController);
+            builder.RegisterInstance(_playerUIHandCardsController);
+            builder.RegisterInstance(_waveController);
 
             builder.RegisterInstance(_map);
             builder.RegisterInstance(_turnManager);

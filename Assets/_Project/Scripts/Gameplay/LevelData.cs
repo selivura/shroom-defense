@@ -8,6 +8,7 @@ namespace ShroomDefense.Gameplay
     {
         [field:SerializeField] public int RowsNumber { get; private set; } = 3;
         [field: SerializeField] public int FurthestEnemyColumn { get; private set; } = 3;
+        [field: SerializeField] public int FurthestPlayerColumn { get; private set; } = -3;
         [SerializeField] private List<Wave> _waves;
         public IReadOnlyList<Wave> Waves => _waves;
     }

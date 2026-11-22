@@ -18,7 +18,7 @@ namespace ShroomDefense.Gameplay
 
         [SerializeField] private MapWorldCell _mapWorldCellPrefab;
 
-        private void Start()
+        public void GenerateMap()
         {
             int boundSizeX = MaxBounds.x - MinBounds.x + 1;
             int boundSizeY = MaxBounds.y - MinBounds.y + 1;
@@ -59,7 +59,10 @@ namespace ShroomDefense.Gameplay
         {
             return Rows[position.y].Units.Remove(position.x);
         }
-
+        public bool IsOccupied(Vector2Int position)
+        {
+            return Rows[position.y].Units.ContainsKey(position.x);
+        }
         public bool ValidatePosition(Vector2Int coordinates)
         {
             if (coordinates.x == 0)

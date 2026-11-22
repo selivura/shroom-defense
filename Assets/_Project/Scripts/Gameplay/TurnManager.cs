@@ -45,7 +45,6 @@ namespace ShroomDefense
             {
                 case TurnType.EnemyAdvance:
                     SetTurn(TurnType.PlayerAdvance);
-                    EnemyAdvance();
                     Debug.Log("Player advance turn!");
                     break;
                 case TurnType.PlayerAdvance:
@@ -71,7 +70,7 @@ namespace ShroomDefense
             OnTurnChanged.Invoke(CurrentTurn);
         }
 
-        private void EnemyAdvance()
+        public void EnemyAdvance()
         {
             List<EnemyUnit> units = new List<EnemyUnit>();
             foreach (var row in _battleMap.Rows)

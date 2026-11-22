@@ -181,6 +181,7 @@ MonoBehaviour:
   _unitFactory: {fileID: 1166746221}
   _playerController: {fileID: 400157764}
   _playerUIHandCardsController: {fileID: 900000102}
+  _waveController: {fileID: 2079713408}
 --- !u!1 &231918574
 GameObject:
   m_ObjectHideFlags: 0
