@@ -93,8 +93,52 @@ namespace ShroomDefense.Input
         {
             ""name"": ""Player"",
             ""id"": ""df70fa95-8a34-4494-b137-73ab6b9c7d37"",
-            ""actions"": [],
-            ""bindings"": []
+            ""actions"": [
+                {
+                    ""name"": ""PointerClick"",
+                    ""type"": ""Button"",
+                    ""id"": ""92967fe5-000c-470c-a96b-494d20d3eaa6"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false,
+                    ""priority"": 0
+                },
+                {
+                    ""name"": ""PointerPosition"",
+                    ""type"": ""Value"",
+                    ""id"": ""331e44dc-b5fb-4493-9abe-557cb8cbeb33"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true,
+                    ""priority"": 0
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""4ab0864f-6e59-405e-9801-ea4f1dc8d1a9"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""PointerClick"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""11a68aaa-63a0-4994-81bb-64317c56a7f6"",
+                    ""path"": ""<Pointer>/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""PointerPosition"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         },
         {
             ""name"": ""UI"",
@@ -646,6 +690,8 @@ namespace ShroomDefense.Input
 }");
             // Player
             m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
+            m_Player_PointerClick = m_Player.FindAction("PointerClick", throwIfNotFound: true);
+            m_Player_PointerPosition = m_Player.FindAction("PointerPosition", throwIfNotFound: true);
             // UI
             m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
             m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -737,6 +783,8 @@ namespace ShroomDefense.Input
         // Player
         private readonly InputActionMap m_Player;
         private List<IPlayerActions> m_PlayerActionsCallbackInterfaces = new List<IPlayerActions>();
+        private readonly InputAction m_Player_PointerClick;
+        private readonly InputAction m_Player_PointerPosition;
         /// <summary>
         /// Provides access to input actions defined in input action map "Player".
         /// </summary>
@@ -748,6 +796,14 @@ namespace ShroomDefense.Input
             /// Construct a new instance of the input action map wrapper class.
             /// </summary>
             public PlayerActions(@GameInputActions wrapper) { m_Wrapper = wrapper; }
+            /// <summary>
+            /// Provides access to the underlying input action "Player/PointerClick".
+            /// </summary>
+            public InputAction @PointerClick => m_Wrapper.m_Player_PointerClick;
+            /// <summary>
+            /// Provides access to the underlying input action "Player/PointerPosition".
+            /// </summary>
+            public InputAction @PointerPosition => m_Wrapper.m_Player_PointerPosition;
             /// <summary>
             /// Provides access to the underlying input action map instance.
             /// </summary>
@@ -774,6 +830,12 @@ namespace ShroomDefense.Input
             {
                 if (instance == null || m_Wrapper.m_PlayerActionsCallbackInterfaces.Contains(instance)) return;
                 m_Wrapper.m_PlayerActionsCallbackInterfaces.Add(instance);
+                @PointerClick.started += instance.OnPointerClick;
+                @PointerClick.performed += instance.OnPointerClick;
+                @PointerClick.canceled += instance.OnPointerClick;
+                @PointerPosition.started += instance.OnPointerPosition;
+                @PointerPosition.performed += instance.OnPointerPosition;
+                @PointerPosition.canceled += instance.OnPointerPosition;
             }
 
             /// <summary>
@@ -785,6 +847,12 @@ namespace ShroomDefense.Input
             /// <seealso cref="PlayerActions" />
             private void UnregisterCallbacks(IPlayerActions instance)
             {
+                @PointerClick.started -= instance.OnPointerClick;
+                @PointerClick.performed -= instance.OnPointerClick;
+                @PointerClick.canceled -= instance.OnPointerClick;
+                @PointerPosition.started -= instance.OnPointerPosition;
+                @PointerPosition.performed -= instance.OnPointerPosition;
+                @PointerPosition.canceled -= instance.OnPointerPosition;
             }
 
             /// <summary>
@@ -1063,6 +1131,20 @@ namespace ShroomDefense.Input
         /// <seealso cref="PlayerActions.RemoveCallbacks(IPlayerActions)" />
         public interface IPlayerActions
         {
+            /// <summary>
+            /// Method invoked when associated input action "PointerClick" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// </summary>
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+            void OnPointerClick(InputAction.CallbackContext context);
+            /// <summary>
+            /// Method invoked when associated input action "PointerPosition" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// </summary>
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+            void OnPointerPosition(InputAction.CallbackContext context);
         }
         /// <summary>
         /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "UI" which allows adding and removing callbacks.

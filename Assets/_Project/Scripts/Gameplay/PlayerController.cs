@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
@@ -15,6 +14,8 @@ namespace ShroomDefense.Gameplay
 
         private BattleMap _battleMap;
         private TurnManager _turnManager;
+        private PlayerUIHandCardsController _handCardsController;
+
         [SerializeField] private int _currentHP = 100;
         [SerializeField] private int _maxHP = 100;
         [field:SerializeField] public int CurrentMana { get; private set; } = 0;
@@ -37,14 +38,18 @@ namespace ShroomDefense.Gameplay
 
 
         [Inject]
-        public void Construct(PersistentDeck persDeck, BattleMap map, TurnManager turnManager, CardFactory cardFactory)
+        public void Construct(PersistentDeck persDeck, BattleMap map, TurnManager turnManager, CardFactory cardFactory, PlayerUIHandCardsController handCardsController)
         {
             _persistentDeck = persDeck;
             _battleMap = map;
             _turnManager = turnManager;
             _cardFactory = cardFactory;
+            _handCardsController = handCardsController;
 
             _currentDeck = new Deck(_persistentDeck.DraftedDeck.CardPrefabs);
+        }
+        private void Start()
+        {
             RefillHand();
         }
 
@@ -73,10 +78,16 @@ namespace ShroomDefense.Gameplay
                 handContents.AppendLine(item.name);
             }
             Debug.Log(handContents);
+
+            _handCardsController?.SyncHand(_hand);
         }
 
-        public void PlayCardFromHand(int index, CardTargetData targetData)
+        public bool PlayCardFromHand(int index, CardTargetData targetData)
         {
+            if (_turnManager.CurrentTurn != TurnType.PlayerAdvance)
+            {
+                return false;
+            }
             if (index >= 0 && index < _hand.Count)
             {
                 Card card = _hand[index];
@@ -84,36 +95,7 @@ namespace ShroomDefense.Gameplay
                 _hand.RemoveAt(index);
             }
             RefillHand();
-        }
-
-        // TODO Удалить и сделать нормальный выбор карты и таргета
-        public void PlayFirstCardFromHand()
-        {
-            if (_hand.Count == 0)
-            {
-                return;
-            }
-
-            List<Vector2Int> availablePlayerPositions = new();
-            for (int y = 0; y < _battleMap.Rows.Count; y++)
-            {
-                if (!_battleMap.Rows[y].Units.ContainsKey(-1))
-                {
-                    availablePlayerPositions.Add(new Vector2Int(-1, y));
-                }
-            }
-
-            if (availablePlayerPositions.Count == 0)
-            {
-                return;
-            }
-
-            int randomIndex = UnityEngine.Random.Range(0, availablePlayerPositions.Count);
-            var data = new CardTargetData
-            {
-                MapPostion = availablePlayerPositions[randomIndex]
-            };
-            PlayCardFromHand(0, data);
+            return true;
         }
 
         public void EndTurn()

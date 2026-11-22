@@ -44,4 +44,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e8b2e9d988c6d24ca61f81853d5511e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShroomDefense.Gameplay.UnitSpawnCard
+  CardIcon: {fileID: 21300000, guid: 713f288c6a6fc4514a9403f26e82dc91, type: 3}
   <Unit>k__BackingField: {fileID: 9022414963188456971, guid: 9ea91c0b8d32b484299055cba55a3017, type: 3}

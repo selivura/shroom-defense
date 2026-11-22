@@ -13,6 +13,31 @@ namespace ShroomDefense.Gameplay
         public List<Row> Rows = new() { new(), new(), new() };
         public Vector2Int UnitWorldDistance = new(1, 1);
 
+        public Vector2Int MinBounds = new(-5, 0);
+        public Vector2Int MaxBounds = new(5, 2);
+
+        [SerializeField] private MapWorldCell _mapWorldCellPrefab;
+
+        private void Start()
+        {
+            int boundSizeX = MaxBounds.x - MinBounds.x + 1;
+            int boundSizeY = MaxBounds.y - MinBounds.y + 1;
+            for (int x = 0; x < boundSizeX; x++)
+            {
+                var posX = MinBounds.x + x;
+                if(posX == 0)
+                {
+                    continue;
+                }
+                for (int y = 0; y < boundSizeY; y++)
+                {
+                    var posY = MinBounds.y + y;
+                    var cell = Instantiate(_mapWorldCellPrefab, new Vector3(posX * UnitWorldDistance.x, posY * UnitWorldDistance.y, 0), Quaternion.identity, transform);
+                    cell.MapPosition = new Vector2Int(posX, posY);
+                }
+            }
+        }
+
         public void PlaceUnitAt(Vector2Int coordinates, Unit unit)
         {
             if(!ValidatePosition(coordinates))

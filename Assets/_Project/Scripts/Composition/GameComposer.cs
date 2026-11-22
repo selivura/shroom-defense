@@ -20,10 +20,10 @@ namespace ShroomDefense
         private async UniTaskVoid StartGameSequence()
         {
             Debug.Log("3");
-            //await UniTask.WaitForSeconds(1);
-            //Debug.Log("2");
-            //await UniTask.WaitForSeconds(1);
-            //Debug.Log("1");
+            await UniTask.WaitForSeconds(1);
+            Debug.Log("2");
+            await UniTask.WaitForSeconds(1);
+            Debug.Log("1");
             await UniTask.WaitForSeconds(1);
             _turnManager.StartGame();
         }
