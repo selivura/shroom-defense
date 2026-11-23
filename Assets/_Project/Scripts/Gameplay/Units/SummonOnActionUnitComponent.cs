@@ -1,12 +1,14 @@
-﻿using UnityEngine;
+﻿using NaughtyAttributes;
+using System;
+using UnityEngine;
 using VContainer;
 
 namespace ShroomDefense.Gameplay
 {
-    [AddComponentMenu("UnitComponents/SummonUnit")]
+    [AddComponentMenu("UnitComponents/SummonOnAction")]
     public class SummonOnActionUnitComponent : UnitComponent
     {
-        [SerializeField] private Unit _caterpillarPrefab;
+        [SerializeField, Required] private Unit _unitPrefab;
 
         private UnitFactory _factory;
         private BattleMap _battleMap;
@@ -20,24 +22,32 @@ namespace ShroomDefense.Gameplay
         public override void OnExecuteAction()
         {
             Vector2Int? emptyCell = FindEmptyEnemyCell();
-            if (emptyCell.HasValue && _caterpillarPrefab != null)
+            if (_unitPrefab == null)
             {
-                var summonedUnit = _factory.Create(_caterpillarPrefab);
-                _battleMap.PlaceUnitAt(emptyCell.Value, summonedUnit);
-                Debug.Log($"{unit.name} призвал(-а) {summonedUnit.name}!");
+                Debug.LogException(new InvalidOperationException($"{name} has no unit prefab assigned."), this);
+                return;
             }
-            else
+            if (!emptyCell.HasValue)
             {
-                Debug.Log($"{unit.name} не смог(-ла) призвать {_caterpillarPrefab.name}!");
+                Debug.Log($"{unit.name} couldn't summon {_unitPrefab.name}: no empty enemy cell.");
+                return;
             }
+
+            var summonedUnit = _factory.Create(_unitPrefab);
+            _battleMap.PlaceUnitAt(emptyCell.Value, summonedUnit);
+            Debug.Log($"{unit.name} summoned {summonedUnit.name}!");
         }
 
         private Vector2Int? FindEmptyEnemyCell()
         {
+            int enemySide = unit.Position.x < 0 ? 1 : -1;
+            int limit = Mathf.Max(Mathf.Abs(_battleMap.MinBounds.x), Mathf.Abs(_battleMap.MaxBounds.x));
+
             for (int y = 0; y < _battleMap.Rows.Count; y++)
             {
-                for (int x = 1; x <= 3; x++)
+                for (int distance = 1; distance <= limit; distance++)
                 {
+                    int x = enemySide * distance;
                     if (!_battleMap.Rows[y].Units.ContainsKey(x))
                     {
                         return new Vector2Int(x, y);

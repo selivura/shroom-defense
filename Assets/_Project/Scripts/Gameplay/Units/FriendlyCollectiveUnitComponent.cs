@@ -1,15 +1,12 @@
 using NaughtyAttributes;
-using ShroomDefense.Gameplay;
 using System.Linq;
 using UnityEngine;
-using VContainer;
 
-namespace ShroomDefense
+namespace ShroomDefense.Gameplay
 {
-    [AddComponentMenu("UnitComponents/FriendlyCollective")]
+    [AddComponentMenu("UnitComponents/FriendlyCollectiveOnStart")]
     public class FriendlyCollectiveUnitComponent : UnitComponent
     {
-        private BattleMap _battleMap;
         [SerializeField][Required] private StatType _attackStatType;
         [SerializeField][Required] private StatType _maxHPStatType;
 
@@ -19,14 +16,9 @@ namespace ShroomDefense
         [InfoBox("Stat Value will be overriden by the component")]
         [SerializeField] private StatModifier _maxHPModifier = new(0, StatModType.Flat);
 
-        [Inject]
-        public void Construct(BattleMap battleMap)
+        protected override void OnComponentInit()
         {
-            _battleMap = battleMap;
-        }
-        private void Start() //старт так как эффект только при розыгрыше
-        {
-            int otherMushroomsCount = unit.FindAllUnitsOnMyTeam().Count(unit => unit != this);
+            int otherMushroomsCount = unit.FindAllUnitsOnMyTeam().Count(ally => ally != unit);
 
             if (otherMushroomsCount <= 0) //баф на найденное количество
             {

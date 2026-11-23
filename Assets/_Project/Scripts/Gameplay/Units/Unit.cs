@@ -160,8 +160,9 @@ namespace ShroomDefense.Gameplay
             List<Unit> output = new List<Unit>();
             foreach (var row in _battleMap.Rows)
             {
-                //  team * Position.x будет положительным только в случае когда команда юнита соотв. заданной команде
-                var unitsInRow = row.Units.Values.Where(unit => team * Position.x > 0).ToList();
+                var unitsInRow = row.Units.Values
+                    .Where(candidate => team * candidate.Position.x > 0)
+                    .ToList();
                 foreach (var unitInRow in unitsInRow)
                 {
                     output.Add(unitInRow);

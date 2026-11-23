@@ -88,7 +88,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d633b6669c8e93740ace5b22ba4644d2, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ShroomDefense.DebuffAllEnemyUnitsUnitComponent
+  m_EditorClassIdentifier: Assembly-CSharp::ShroomDefense.Gameplay.DebuffAllEnemyUnitsUnitComponent
   _buffedStatTypes:
   - {fileID: 11400000, guid: 083da34afcc63734bbdbce1ac20a85cf, type: 2}
   _statModifier:

@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace ShroomDefense.Gameplay
 {
-    [AddComponentMenu("UnitComponents/SelfDamageAction")]
+    [AddComponentMenu("UnitComponents/SelfDamageOnAction")]
     public class SelfDamageActionUnitComponent : UnitComponent
     {
         [SerializeField] private int _damageAmount = 2;

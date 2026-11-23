@@ -49,6 +49,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6750255117481278737, guid: 32903612c352ae34495cd5f7fbe15ab8, type: 3}
+      propertyPath: _currentHP
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6750255117481278737, guid: 32903612c352ae34495cd5f7fbe15ab8, type: 3}
       propertyPath: StatController.Stats.Array.data[0].value._baseValue
       value: 1
       objectReference: {fileID: 0}
@@ -84,7 +88,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ddf499029cdbf14084cc61c6337b2c0, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ShroomDefense.BuffUnitAtOffsetUnitComponent
+  m_EditorClassIdentifier: Assembly-CSharp::ShroomDefense.Gameplay.BuffUnitAtOffsetOnStartUnitComponent
   _buffedStatTypes:
   - {fileID: 11400000, guid: 083da34afcc63734bbdbce1ac20a85cf, type: 2}
   - {fileID: 11400000, guid: 98a67a176e326fc449d2caca0974326b, type: 2}

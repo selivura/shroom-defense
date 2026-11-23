@@ -99,7 +99,8 @@ namespace ShroomDefense
             // TODO добавть асинк чтобы все не моментально просиходило
             foreach (var row in _battleMap.Rows)
             {
-                foreach (var pair in row.Units)
+                var unitsSnapshot = new Dictionary<int, Unit>(row.Units);
+                foreach (var pair in unitsSnapshot)
                 {
                     if(pair.Key >=0)
                     {
@@ -118,7 +119,8 @@ namespace ShroomDefense
             // TODO добавть асинк чтобы все не моментально просиходило
             foreach (var row in _battleMap.Rows)
             {
-                foreach (var pair in row.Units)
+                var unitsSnapshot = new Dictionary<int, Unit>(row.Units);
+                foreach (var pair in unitsSnapshot)
                 {
                     if (pair.Key <= 0)
                     {

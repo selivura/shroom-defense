@@ -5,10 +5,11 @@ using NaughtyAttributes;
 
 namespace ShroomDefense.Gameplay
 {
-    [AddComponentMenu("UnitComponents/HikeLeader")]
+    [AddComponentMenu("UnitComponents/HikeLeaderOnStartAndOnAction")]
     public class HikeLeaderUnitComponent : UnitComponent
     {
-        private int _currentBonus = 0;
+        private int _currentAttackBonus = 0;
+        private int _currentHealthBonus = 0;
         [SerializeField] private StatType _attackStatType;
         [SerializeField] private StatType _maxHPStatType;
 
@@ -18,7 +19,7 @@ namespace ShroomDefense.Gameplay
         [InfoBox("Stat Value is overriden by component")]
         [SerializeField] private StatModifier _maxHealthModifier;
 
-        private void Start()
+        protected override void OnComponentInit()
         {
             if (unit.StatController.GetStat(_attackStatType, out var ownAttackStat))
             {
@@ -34,12 +35,16 @@ namespace ShroomDefense.Gameplay
         public override void OnExecuteAction()
         {
             int otherForagersCount = unit.FindAllUnitsOnMyTeam()
-                .Count(unit => unit != this && unit.CurrentHP > 0);
+                .Count(ally => ally != unit && ally.CurrentHP > 0);
 
-            _attackModifier.Value = otherForagersCount - _currentBonus;
-            _currentBonus = otherForagersCount;
+            int attackBonus = otherForagersCount - _currentAttackBonus;
+            int healthBonus = otherForagersCount - _currentHealthBonus;
+            _attackModifier.Value = attackBonus;
+            _maxHealthModifier.Value = healthBonus;
+            _currentAttackBonus = otherForagersCount;
+            _currentHealthBonus = otherForagersCount;
 
-            Debug.Log($"{unit.name} HikeLeader buffed his attack!");
+            Debug.Log($"{unit.name} HikeLeader buffed its attack and health!");
         }
     }
 }

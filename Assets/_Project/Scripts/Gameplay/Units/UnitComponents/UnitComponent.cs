@@ -18,7 +18,7 @@ namespace ShroomDefense.Gameplay
         }
 
         /// <summary>
-        /// Вызывается сразу после инициализации компонента, ДО инжекта в компонент зависимостей. см. <see cref="Unit.Construct"/>
+        /// Вызывается после инжекта зависимостей и инициализации компонента. см. <see cref="Unit.Construct"/>
         /// </summary>
         protected virtual void OnComponentInit()
         {

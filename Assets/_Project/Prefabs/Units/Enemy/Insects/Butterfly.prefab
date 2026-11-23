@@ -89,4 +89,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61e0f661af72bfe49a678065889277e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShroomDefense.Gameplay.SummonOnActionUnitComponent
-  _caterpillarPrefab: {fileID: 2030731902418323802, guid: 1d0384ea0218f514faf9b9c785027337, type: 3}
+  _unitPrefab: {fileID: 2030731902418323802, guid: 1d0384ea0218f514faf9b9c785027337, type: 3}

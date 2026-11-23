@@ -270,10 +270,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43cb703faef7cd44e94903d7cd373520, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShroomDefense.Gameplay.PlayerController
-  _currentHP: 100
-  _maxHP: 100
+  _currentHP: 10
+  <StatController>k__BackingField:
+    Stats:
+    - key: {fileID: 11400000, guid: 98a67a176e326fc449d2caca0974326b, type: 2}
+      value:
+        _baseValue: 10
   <CurrentMana>k__BackingField: 0
-  <MaxMana>k__BackingField: 0
   HandSize: 5
 --- !u!1 &641914312
 GameObject:

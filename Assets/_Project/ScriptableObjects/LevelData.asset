@@ -17,10 +17,10 @@ MonoBehaviour:
   <FurthestPlayerColumn>k__BackingField: -3
   _waves:
   - _unitPrefabs:
-    - {fileID: 3970228999806526476, guid: 07b5e3839c70f01429f74ce4624f101c, type: 3}
-    - {fileID: 3970228999806526476, guid: 07b5e3839c70f01429f74ce4624f101c, type: 3}
-    - {fileID: 3970228999806526476, guid: 07b5e3839c70f01429f74ce4624f101c, type: 3}
+    - {fileID: 2030731902418323802, guid: 53f2abbc6860e0447bc17785618da16b, type: 3}
+    - {fileID: 2030731902418323802, guid: 75c492c13a35e1348b6ee6595e850f60, type: 3}
+    - {fileID: 2030731902418323802, guid: 75c492c13a35e1348b6ee6595e850f60, type: 3}
   - _unitPrefabs:
-    - {fileID: 3970228999806526476, guid: 07b5e3839c70f01429f74ce4624f101c, type: 3}
-    - {fileID: 3970228999806526476, guid: 07b5e3839c70f01429f74ce4624f101c, type: 3}
-    - {fileID: 3970228999806526476, guid: 07b5e3839c70f01429f74ce4624f101c, type: 3}
+    - {fileID: 2030731902418323802, guid: 522cda9fd2e2ca14397af5ced7e31101, type: 3}
+    - {fileID: 2030731902418323802, guid: 53f2abbc6860e0447bc17785618da16b, type: 3}
+    - {fileID: 2030731902418323802, guid: 98736032e1a76c64e996ce645dd9220c, type: 3}

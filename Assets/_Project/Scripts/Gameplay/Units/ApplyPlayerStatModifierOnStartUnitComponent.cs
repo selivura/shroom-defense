@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using VContainer;
 
-namespace ShroomDefense
+namespace ShroomDefense.Gameplay
 {
     [AddComponentMenu("UnitComponents/ApplyPlayerStatModifierOnStart")]
     public class ApplyPlayerStatModifierOnStartUnitComponent : UnitComponent
@@ -18,7 +18,7 @@ namespace ShroomDefense
             _player = player;
         }
 
-        private void Start()
+        protected override void OnComponentInit()
         {
             _statModifier.WithSource(unit);
             _player.StatController.AddModifierToAllStatsOfTypes(_buffedStatTypes, _statModifier);

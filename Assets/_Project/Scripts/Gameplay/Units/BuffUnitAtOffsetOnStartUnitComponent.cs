@@ -20,7 +20,7 @@ namespace ShroomDefense.Gameplay
         {
             _battleMap = battleMap;
         }
-        private void Start() //баф стоящего на позиции относительно себя юнита
+        protected override void OnComponentInit()
         {
             Vector2Int buffPos = unit.Position;
             if(unit.Position.x < 0)
@@ -31,12 +31,17 @@ namespace ShroomDefense.Gameplay
             {
                 buffPos += new Vector2Int(-_relativeOffset.x, _relativeOffset.y);
             }
+            if (!_battleMap.ValidatePosition(buffPos))
+            {
+                return;
+            }
+
             var rowUnits = _battleMap.Rows[buffPos.y].Units;
             if (!rowUnits.TryGetValue(buffPos.x, out Unit targetUnit))
             {
                 return;
             }
-            if (targetUnit.Position.x >= 0 || targetUnit.CurrentHP <= 0)
+            if ((targetUnit.Position.x < 0) != (unit.Position.x < 0) || targetUnit.CurrentHP <= 0)
             {
                 return;
             }

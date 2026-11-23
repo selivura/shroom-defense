@@ -1,18 +1,11 @@
 using UnityEngine;
-using VContainer;
 
 namespace ShroomDefense.Gameplay
 {
-    [AddComponentMenu("UnitComponents/HealEveryoneOnTeam")]
+    [AddComponentMenu("UnitComponents/HealEveryoneOnMyTeamOnAction")]
     public class HealEveryoneOnMyTeam : UnitComponent
     {
-        private BattleMap _battleMap;
         [SerializeField] private int _healAmount = 1;
-        [Inject]
-        public void Construct(BattleMap battleMap)
-        {
-            _battleMap = battleMap;
-        }
         public override void OnExecuteAction()
         {
             var allies = unit.FindAllUnitsOnMyTeam();

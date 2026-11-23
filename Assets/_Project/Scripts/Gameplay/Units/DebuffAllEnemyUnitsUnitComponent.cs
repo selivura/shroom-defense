@@ -1,23 +1,14 @@
-﻿using ShroomDefense.Gameplay;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using VContainer;
 
-namespace ShroomDefense
+namespace ShroomDefense.Gameplay
 {
-    [AddComponentMenu("UnitComponents/DebuffAllEnemyUnits")]
+    [AddComponentMenu("UnitComponents/DebuffAllEnemyUnitsOnAction")]
     public class DebuffAllEnemyUnitsUnitComponent : UnitComponent
     {
-        private BattleMap _battleMap;
         [SerializeField] private List<StatType> _buffedStatTypes;
 
         [SerializeField] private StatModifier _statModifier = new(-1, StatModType.Flat);
-        [Inject]
-        public void Construct(BattleMap battleMap)
-        {
-            _battleMap = battleMap;
-        }
         public override void OnExecuteAction()
         {
             var enemies = unit.FindAllUnitsOnEnemyField();

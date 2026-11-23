@@ -1,28 +1,20 @@
 using NaughtyAttributes;
 using System.Linq;
 using UnityEngine;
-using VContainer;
 
 namespace ShroomDefense.Gameplay
 {
-    [AddComponentMenu("UnitComponents/Withered")]
+    [AddComponentMenu("UnitComponents/WitheredOnStart")]
     public class WitheredUnitComponent : UnitComponent
     {
-        private BattleMap _battleMap;
         [SerializeField][Required] private StatType _attackStatType;
         [SerializeField] private float _attackThreshold = 3f;
 
-        [Inject]
-        public void Construct(BattleMap battleMap)
+        protected override void OnComponentInit()
         {
-            _battleMap = battleMap;
-        }
-        public void Start()
-        {
-            var currentRow = _battleMap.Rows[unit.Position.y];
-            var firstEnemy = currentRow.Units.Values
-                .Where(unit => unit.Position.x > 0 && unit.CurrentHP > 0)
-                .OrderBy(unit => unit.Position.x)
+            var firstEnemy = unit.FindAllUnitsOnEnemyField()
+                .Where(enemy => enemy.Position.y == unit.Position.y && enemy.CurrentHP > 0)
+                .OrderBy(enemy => Mathf.Abs(enemy.Position.x - unit.Position.x))
                 .FirstOrDefault();
             if (firstEnemy == null)
             {

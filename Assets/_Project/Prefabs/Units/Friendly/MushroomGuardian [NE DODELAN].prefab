@@ -49,12 +49,16 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6750255117481278737, guid: 32903612c352ae34495cd5f7fbe15ab8, type: 3}
+      propertyPath: _currentHP
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6750255117481278737, guid: 32903612c352ae34495cd5f7fbe15ab8, type: 3}
       propertyPath: StatController.Stats.Array.data[0].value._baseValue
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 8050393210091718728, guid: 32903612c352ae34495cd5f7fbe15ab8, type: 3}
       propertyPath: m_Name
-      value: MushroomGuardian
+      value: 'MushroomGuardian [NE DODELAN]'
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

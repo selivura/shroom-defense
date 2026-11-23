@@ -1,7 +1,6 @@
-﻿using ShroomDefense.Gameplay;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace ShroomDefense
+namespace ShroomDefense.Gameplay
 {
     [AddComponentMenu("UnitComponents/HealSelfOnAction")]
     public class HealSelfOnActionUnitComponent : UnitComponent

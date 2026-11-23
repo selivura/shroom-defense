@@ -57,6 +57,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: f47a0b2c181149b429262d1d03bfb4c0, type: 2}
     - target: {fileID: 8681361497523067876, guid: 5484524ca6f67d94483125512d1f4c41, type: 3}
+      propertyPath: _currentHP
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8681361497523067876, guid: 5484524ca6f67d94483125512d1f4c41, type: 3}
       propertyPath: StatController.Stats.Array.data[0].value._baseValue
       value: 2
       objectReference: {fileID: 0}

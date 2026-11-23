@@ -1,20 +1,11 @@
-using ShroomDefense.Gameplay;
-using System.Linq;
 using UnityEngine;
-using VContainer;
 
-namespace ShroomDefense
+namespace ShroomDefense.Gameplay
 {
-    [AddComponentMenu("UnitComponents/DamageEveryEnemy")]
+    [AddComponentMenu("UnitComponents/DamageEveryEnemyOnAction")]
     public class DamageEveryEnemyUnitComponent : UnitComponent
     {
-        private BattleMap _battleMap;
         [SerializeField] private int _damageAmount = 1;
-        [Inject]
-        public void Construct(BattleMap battleMap)
-        {
-            _battleMap = battleMap;
-        }
         public override void OnExecuteAction()
         {
             var enemies = unit.FindAllUnitsOnEnemyField();

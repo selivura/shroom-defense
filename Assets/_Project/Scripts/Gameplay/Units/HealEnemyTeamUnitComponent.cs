@@ -2,7 +2,7 @@
 
 namespace ShroomDefense.Gameplay
 {
-    [AddComponentMenu("UnitComponents/HealEnemyTeam")]
+    [AddComponentMenu("UnitComponents/HealEnemyTeamOnAction")]
     public class HealEnemyTeamUnitComponent : UnitComponent
     {
         [SerializeField] private int _healAmount = 1;

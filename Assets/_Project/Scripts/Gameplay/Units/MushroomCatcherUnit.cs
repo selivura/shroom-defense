@@ -2,7 +2,7 @@
 
 namespace ShroomDefense.Gameplay
 {
-    [AddComponentMenu("UnitComponents/MushroomCatcher")]
+    [AddComponentMenu("UnitComponents/MushroomCatcherOnAction")]
     public class MushroomCatcherUnit : UnitComponent
     {
         public override void OnExecuteAction()

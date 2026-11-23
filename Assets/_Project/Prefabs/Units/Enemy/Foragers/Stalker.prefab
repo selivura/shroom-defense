@@ -53,6 +53,10 @@ PrefabInstance:
       value: Stalker
       objectReference: {fileID: 0}
     - target: {fileID: 8681361497523067876, guid: 5484524ca6f67d94483125512d1f4c41, type: 3}
+      propertyPath: _currentHP
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8681361497523067876, guid: 5484524ca6f67d94483125512d1f4c41, type: 3}
       propertyPath: StatController.Stats.Array.data[0].value._baseValue
       value: 2
       objectReference: {fileID: 0}
@@ -84,7 +88,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5a20d1356bf6aee42ba506fea6c49d6c, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ShroomDefense.ApplyPlayerStatModifierOnActionUnitComponent
+  m_EditorClassIdentifier: Assembly-CSharp::ShroomDefense.Gameplay.ApplyPlayerStatModifierOnActionUnitComponent
   _buffedStatTypes:
   - {fileID: 11400000, guid: 7f495c6ab8dd5a44887531606536aeae, type: 2}
   _statModifier:

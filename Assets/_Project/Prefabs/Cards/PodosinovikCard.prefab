@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2078309993283394554}
   - component: {fileID: 1188419768314718462}
   m_Layer: 0
-  m_Name: TestShroomCard
+  m_Name: PodosinovikCard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -45,4 +45,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShroomDefense.Gameplay.UnitSpawnCard
   CardIcon: {fileID: 21300000, guid: 713f288c6a6fc4514a9403f26e82dc91, type: 3}
-  <Unit>k__BackingField: {fileID: 9022414963188456971, guid: 9ea91c0b8d32b484299055cba55a3017, type: 3}
+  <ManaCost>k__BackingField: 1
+  <Unit>k__BackingField: {fileID: 8217847914694762145, guid: 257c82fd7ae9d584ab29634cac641325, type: 3}

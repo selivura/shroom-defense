@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using VContainer;
 
-namespace ShroomDefense
+namespace ShroomDefense.Gameplay
 {
     [AddComponentMenu("UnitComponents/ApplyPlayerStatModifierOnAction")]
     public class ApplyPlayerStatModifierOnActionUnitComponent : UnitComponent

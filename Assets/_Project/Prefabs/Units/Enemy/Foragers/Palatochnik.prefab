@@ -53,6 +53,10 @@ PrefabInstance:
       value: Palatochnik
       objectReference: {fileID: 0}
     - target: {fileID: 8681361497523067876, guid: 5484524ca6f67d94483125512d1f4c41, type: 3}
+      propertyPath: _currentHP
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8681361497523067876, guid: 5484524ca6f67d94483125512d1f4c41, type: 3}
       propertyPath: StatController.Stats.Array.data[0].value._baseValue
       value: 3
       objectReference: {fileID: 0}

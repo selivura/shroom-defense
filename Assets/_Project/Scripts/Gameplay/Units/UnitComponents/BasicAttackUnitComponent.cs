@@ -3,6 +3,7 @@ using VContainer;
 
 namespace ShroomDefense.Gameplay
 {
+    [AddComponentMenu("UnitComponents/BasicAttackOnAction")]
     /// <summary>
     /// Uses <see cref="_attackStatType"/> as damage amount, and deals damage to nearest enemy unit in the same row,
     /// If no enemy unit is found, it will deal damage to the player instead (Only if unit is opposed to player).
@@ -36,7 +37,12 @@ namespace ShroomDefense.Gameplay
 
             foreach (var enemy in enemyUnits)
             {
-                var distance = enemy.Position.x - unit.Position.x;
+                if (enemy.Position.y != unit.Position.y)
+                {
+                    continue;
+                }
+
+                var distance = Mathf.Abs(enemy.Position.x - unit.Position.x);
                 if (distance < closestDistance)
                 {
                     closestDistance = distance;

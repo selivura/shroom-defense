@@ -2,10 +2,10 @@ using UnityEngine;
 
 namespace ShroomDefense.Gameplay
 {
-    [AddComponentMenu("UnitComponents/HeavyPrivateUnit")]
+    [AddComponentMenu("UnitComponents/AddShieldOnStart")]
     public class AddShieldOnStartUnitComponent : UnitComponent
     {
-        private void Start()
+        protected override void OnComponentInit()
         {
             unit.AddShield();
         }

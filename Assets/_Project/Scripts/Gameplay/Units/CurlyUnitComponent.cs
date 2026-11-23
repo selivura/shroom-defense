@@ -1,14 +1,12 @@
 using NaughtyAttributes;
 using System.Linq;
 using UnityEngine;
-using VContainer;
 
 namespace ShroomDefense.Gameplay
 {
-    [AddComponentMenu("UnitComponents/CurlyUnit")]
+    [AddComponentMenu("UnitComponents/CurlyOnStart")]
     public class CurlyUnitComponent : UnitComponent
     {
-        private BattleMap _battleMap;
         [SerializeField] [Required] private StatType _attackStatType;
         [SerializeField] [Required] private StatType _maxHPStatType;
 
@@ -18,16 +16,10 @@ namespace ShroomDefense.Gameplay
         [InfoBox("Stat Value will be overriden by the component")]
         [SerializeField] private StatModifier _maxHPModifier;
 
-        [Inject]
-        public void Construct(BattleMap battleMap)
+        protected override void OnComponentInit()
         {
-            _battleMap = battleMap;
-        }
-        private void Start()
-        {
-            var allies = _battleMap.Rows
-                .SelectMany(row => row.Units.Values)
-                .Where(unit => unit != this && unit.Position.x < 0 && unit.CurrentHP > 0)
+            var allies = unit.FindAllUnitsOnMyTeam()
+                .Where(ally => ally != unit && ally.CurrentHP > 0)
                 .ToList();
             if (allies.Count == 0)
             {
