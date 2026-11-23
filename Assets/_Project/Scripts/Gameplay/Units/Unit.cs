@@ -8,10 +8,10 @@ namespace ShroomDefense.Gameplay
 {
     public abstract class Unit : MonoBehaviour, IDamageable, IDamageSource
     {
-        [SerializeField] private int _currentHP = 100;
-        [SerializeField] private int _maxHP = 100;
-        [SerializeField] private int _currentAttack = 100;
-        [SerializeField] private int _maxAttack = 100;
+        [SerializeField] private int _currentHP = 5;
+        [SerializeField] private int _maxHP = 5;
+        [SerializeField] private int _currentAttack = 5;
+        [SerializeField] private int _maxAttack = 5;
         private bool _isShielded;
         private Vector2Int _position;
         private bool _isPositionDirty = true;

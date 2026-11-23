@@ -14,14 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ShroomDefense.Gameplay.LevelData
   <RowsNumber>k__BackingField: 3
   <FurthestEnemyColumn>k__BackingField: 3
+  <FurthestPlayerColumn>k__BackingField: -3
   _waves:
   - _unitPrefabs:
     - {fileID: 3970228999806526476, guid: 07b5e3839c70f01429f74ce4624f101c, type: 3}
     - {fileID: 3970228999806526476, guid: 07b5e3839c70f01429f74ce4624f101c, type: 3}
     - {fileID: 3970228999806526476, guid: 07b5e3839c70f01429f74ce4624f101c, type: 3}
-    - {fileID: 3970228999806526476, guid: 07b5e3839c70f01429f74ce4624f101c, type: 3}
   - _unitPrefabs:
-    - {fileID: 3970228999806526476, guid: 07b5e3839c70f01429f74ce4624f101c, type: 3}
     - {fileID: 3970228999806526476, guid: 07b5e3839c70f01429f74ce4624f101c, type: 3}
     - {fileID: 3970228999806526476, guid: 07b5e3839c70f01429f74ce4624f101c, type: 3}
     - {fileID: 3970228999806526476, guid: 07b5e3839c70f01429f74ce4624f101c, type: 3}
