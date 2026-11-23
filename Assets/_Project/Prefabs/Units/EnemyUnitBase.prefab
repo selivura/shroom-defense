@@ -8,6 +8,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1197741864854228683, guid: defed8496ad816045abd18cdbc4c91cb, type: 3}
+      propertyPath: Faction
+      value: 
+      objectReference: {fileID: 11400000, guid: 81cf929ba8e6f974c8e0bb554c33414d, type: 2}
     - target: {fileID: 2488871400966732690, guid: defed8496ad816045abd18cdbc4c91cb, type: 3}
       propertyPath: m_Name
       value: EnemyUnitBase
@@ -73,7 +77,7 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 2488871400966732690, guid: defed8496ad816045abd18cdbc4c91cb, type: 3}
-      insertIndex: -1
+      insertIndex: 2
       addedObject: {fileID: 6943848596910203513}
   m_SourcePrefab: {fileID: 100100000, guid: defed8496ad816045abd18cdbc4c91cb, type: 3}
 --- !u!1 &5363612275122745021 stripped

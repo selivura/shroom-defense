@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace ShroomDefense.Gameplay
 {
-    [RequireComponent(typeof(UnitComponent))]
+    [RequireComponent(typeof(Unit))]
     public abstract class UnitComponent : MonoBehaviour
     {
         protected Unit unit { get; private set; }

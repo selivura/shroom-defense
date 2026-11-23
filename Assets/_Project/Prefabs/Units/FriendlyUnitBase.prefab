@@ -8,6 +8,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1197741864854228683, guid: defed8496ad816045abd18cdbc4c91cb, type: 3}
+      propertyPath: Faction
+      value: 
+      objectReference: {fileID: 11400000, guid: e8a7bf7fa3a830c4c8fa0bff718e3eea, type: 2}
     - target: {fileID: 2488871400966732690, guid: defed8496ad816045abd18cdbc4c91cb, type: 3}
       propertyPath: m_Name
       value: FriendlyUnitBase

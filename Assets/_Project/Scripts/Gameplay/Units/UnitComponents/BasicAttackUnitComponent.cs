@@ -19,6 +19,15 @@ namespace ShroomDefense.Gameplay
         }
         public override void OnExecuteAction()
         {
+            if (!unit.StatController.GetStatValue(_attackStatType, out var statValue))
+            {
+                return;
+            }
+            if(statValue == 0)
+            {
+                return;
+            }
+
             // Find closest enemy unit with the same Y coordinate as this unit, or hit Player instead.
             Unit closestEnemy = null;
             int closestDistance = int.MaxValue;
@@ -33,11 +42,6 @@ namespace ShroomDefense.Gameplay
                     closestDistance = distance;
                     closestEnemy = enemy;
                 }
-            }
-
-            if (!unit.StatController.GetStatValue(_attackStatType, out var statValue))
-            {
-                return;
             }
 
             if (closestEnemy != null)

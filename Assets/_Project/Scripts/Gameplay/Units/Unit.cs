@@ -10,6 +10,7 @@ namespace ShroomDefense.Gameplay
     public class Unit : MonoBehaviour, IDamageable, IDamageSource
     {
         [SerializeField] private int _currentHP = 5;
+        public UnitFaction Faction;
         [field: SerializeField] public StatController StatController;
         private List<UnitComponent> _unitComponents = new();
         private IObjectResolver _resolver;
