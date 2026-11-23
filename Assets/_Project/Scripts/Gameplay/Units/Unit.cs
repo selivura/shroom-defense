@@ -10,9 +10,7 @@ namespace ShroomDefense.Gameplay
     public class Unit : MonoBehaviour, IDamageable, IDamageSource
     {
         [SerializeField] private int _currentHP = 5;
-        [SerializeField] private int _maxHP = 5;
-        [SerializeField] private int _currentAttack = 5;
-        [SerializeField] private int _maxAttack = 5;
+        [field: SerializeField] public StatController StatController;
         private List<UnitComponent> _unitComponents = new();
         private IObjectResolver _resolver;
         private bool _isShielded;
@@ -46,31 +44,11 @@ namespace ShroomDefense.Gameplay
         public int CurrentHP
         {
             get => _currentHP;
-            private set => _currentHP = Mathf.Clamp(value, 0, _maxHP);
         }
-
-        public int MaxHP
-        {
-            get => _maxHP;
-            private set => _maxHP = Mathf.Max(value, 0);
-        }
-
-
-        public int CurrentAttack
-        {
-            get => _currentAttack;
-            private set => _currentAttack = Mathf.Clamp(value, 0, _maxAttack);
-        }
-
-        public int MaxAttack
-        {
-            get => _maxAttack;
-            private set => _maxAttack = Mathf.Max(value, 0);
-        }
-
         public UnityEvent OnUnitDeath;
 
         protected BattleMap _battleMap;
+
         [Inject]
         public void Construct(BattleMap map, IObjectResolver resolver)
         {
@@ -99,6 +77,9 @@ namespace ShroomDefense.Gameplay
             _unitComponents.Add(component);
         }
 
+        /// <summary>
+        /// В компонентах вызывается <see cref="UnitComponent.OnExecuteAction"/> в порядке в котором они расположены в инспекторе
+        /// </summary>
         public void ExecuteAction()
         {
             foreach (var component in _unitComponents)
@@ -113,8 +94,8 @@ namespace ShroomDefense.Gameplay
                 _isShielded = false; // Щит ломается и поглощает весь урон
                 return;
             }
-            CurrentHP -= damage.Amount;
-            if (CurrentHP <= 0)
+            _currentHP -= damage.Amount;
+            if (_currentHP <= 0)
             {
                 Die();
             }
@@ -154,26 +135,38 @@ namespace ShroomDefense.Gameplay
             {
                 return; 
             }
-            CurrentHP += amount;
-        }
-        public void BuffAttack(int amount)
-        {
-            CurrentAttack += amount;
+            _currentHP += amount;
         }
 
-        public void DebuffAttack(int amount)
+
+        // Helper methods
+        public List<Unit> FindAllUnitsOnMyTeam()
         {
-            if (CurrentAttack - amount <= 0)
+            return FindAllUnitsOnTeam(Position.x < 0 ? -1 : 1);
+        }
+
+        public List<Unit> FindAllUnitsOnEnemyField()
+        {
+            return FindAllUnitsOnTeam(Position.x < 0 ? 1 : -1);
+        }
+
+        public List<Unit> FindAllUnitsOnTeam(int team)
+        {
+            if (team == 0)
             {
-                return;
+                throw new ArgumentException($"Team can't be ZERO!", nameof(team));
             }
-            CurrentAttack -= amount;
-        }
-
-        public void BuffMaxHP(int amount)
-        {
-            MaxHP += amount;
-            CurrentHP += amount;
+            List<Unit> output = new List<Unit>();
+            foreach (var row in _battleMap.Rows)
+            {
+                //  team * Position.x будет положительным только в случае когда команда юнита соотв. заданной команде
+                var unitsInRow = row.Units.Values.Where(unit => team * Position.x > 0).ToList();
+                foreach (var unitInRow in unitsInRow)
+                {
+                    output.Add(unitInRow);
+                }
+            }
+            return output;
         }
     }
 }

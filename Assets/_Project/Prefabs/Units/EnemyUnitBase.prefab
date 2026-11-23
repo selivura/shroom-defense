@@ -1,0 +1,95 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &7558552725070124335
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2488871400966732690, guid: defed8496ad816045abd18cdbc4c91cb, type: 3}
+      propertyPath: m_Name
+      value: EnemyUnitBase
+      objectReference: {fileID: 0}
+    - target: {fileID: 3027680591985074582, guid: defed8496ad816045abd18cdbc4c91cb, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
+    - target: {fileID: 3027680591985074582, guid: defed8496ad816045abd18cdbc4c91cb, type: 3}
+      propertyPath: m_Color.b
+      value: 0.514151
+      objectReference: {fileID: 0}
+    - target: {fileID: 3027680591985074582, guid: defed8496ad816045abd18cdbc4c91cb, type: 3}
+      propertyPath: m_Color.g
+      value: 0.514151
+      objectReference: {fileID: 0}
+    - target: {fileID: 3027680591985074582, guid: defed8496ad816045abd18cdbc4c91cb, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6553438655856027687, guid: defed8496ad816045abd18cdbc4c91cb, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6553438655856027687, guid: defed8496ad816045abd18cdbc4c91cb, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6553438655856027687, guid: defed8496ad816045abd18cdbc4c91cb, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6553438655856027687, guid: defed8496ad816045abd18cdbc4c91cb, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6553438655856027687, guid: defed8496ad816045abd18cdbc4c91cb, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6553438655856027687, guid: defed8496ad816045abd18cdbc4c91cb, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6553438655856027687, guid: defed8496ad816045abd18cdbc4c91cb, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6553438655856027687, guid: defed8496ad816045abd18cdbc4c91cb, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6553438655856027687, guid: defed8496ad816045abd18cdbc4c91cb, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6553438655856027687, guid: defed8496ad816045abd18cdbc4c91cb, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2488871400966732690, guid: defed8496ad816045abd18cdbc4c91cb, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6943848596910203513}
+  m_SourcePrefab: {fileID: 100100000, guid: defed8496ad816045abd18cdbc4c91cb, type: 3}
+--- !u!1 &5363612275122745021 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2488871400966732690, guid: defed8496ad816045abd18cdbc4c91cb, type: 3}
+  m_PrefabInstance: {fileID: 7558552725070124335}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &6943848596910203513
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5363612275122745021}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7acbd47b1a551648bd8e6407b933724, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ShroomDefense.Gameplay.AdvanceUnitComponent

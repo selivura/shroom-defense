@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace ShroomDefense
 {
-    public class TestZombie : EnemyUnit
+    public class TestZombie : AdvanceUnitComponent
     {
 
     }
