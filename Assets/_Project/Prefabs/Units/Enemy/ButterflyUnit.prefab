@@ -112,4 +112,4 @@ MonoBehaviour:
   OnUnitDeath:
     m_PersistentCalls:
       m_Calls: []
-  _caterpillarPrefab: {fileID: 0}
+  _caterpillarPrefab: {fileID: 3439785935934233900, guid: c72cb64ed0d6f9d4e9c2892b741a9079, type: 3}
