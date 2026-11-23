@@ -7,12 +7,13 @@ using VContainer;
 
 namespace ShroomDefense.Gameplay
 {
-    public abstract class Unit : MonoBehaviour, IDamageable, IDamageSource
+    public class Unit : MonoBehaviour, IDamageable, IDamageSource
     {
         [SerializeField] private int _currentHP = 5;
         [SerializeField] private int _maxHP = 5;
         [SerializeField] private int _currentAttack = 5;
         [SerializeField] private int _maxAttack = 5;
+        private List<UnitComponent> _unitComponents = new();
         private IObjectResolver _resolver;
         private bool _isShielded;
         private Vector2Int _position;
@@ -78,12 +79,33 @@ namespace ShroomDefense.Gameplay
             var unitComponents = GetComponents<UnitComponent>().ToList();
             foreach (var component in unitComponents)
             {
-                _resolver.Inject(component);
-                component.InitializeComponent(this);
+                RegisterComponent(component);
             }
         }
 
-        public abstract void ExecuteAction();
+        /// <summary>
+        /// Этот метод предназначен для регистрации компонентов добавленных после запуска игры.
+        /// </summary>
+        /// <param name="component"></param>
+        public void RegisterComponent(UnitComponent component)
+        {
+            if (_unitComponents.Contains(component))
+            {
+                Debug.LogWarning($"Component {component.GetType().Name} is already registered to unit {name}");
+                return;
+            }
+            _resolver.Inject(component);
+            component.InitializeComponent(this);
+            _unitComponents.Add(component);
+        }
+
+        public void ExecuteAction()
+        {
+            foreach (var component in _unitComponents)
+            {
+                component.OnExecuteAction();
+            }
+        }
         public void TakeDamage(Damage damage)
         {
             if (_isShielded)
