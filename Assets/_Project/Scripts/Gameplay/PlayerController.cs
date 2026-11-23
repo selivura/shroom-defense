@@ -117,12 +117,12 @@ namespace ShroomDefense.Gameplay
             }
 
             int randomIndex = UnityEngine.Random.Range(0, _currentDeck.CardPrefabs.Count);
+
             Card cardPrefab = _currentDeck.CardPrefabs[randomIndex];
             if (!DrawCard(cardPrefab, bypassMaxHandSize))
             {
                 return false;
             }
-
             _currentDeck.CardPrefabs.RemoveAt(randomIndex);
             return true;
         }
