@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
@@ -12,6 +13,7 @@ namespace ShroomDefense.Gameplay
         [SerializeField] private int _maxHP = 5;
         [SerializeField] private int _currentAttack = 5;
         [SerializeField] private int _maxAttack = 5;
+        private IObjectResolver _resolver;
         private bool _isShielded;
         private Vector2Int _position;
         private bool _isPositionDirty = true;
@@ -69,9 +71,16 @@ namespace ShroomDefense.Gameplay
 
         protected BattleMap _battleMap;
         [Inject]
-        public void Construct(BattleMap map)
+        public void Construct(BattleMap map, IObjectResolver resolver)
         {
             _battleMap = map;
+            _resolver = resolver;
+            var unitComponents = GetComponents<UnitComponent>().ToList();
+            foreach (var component in unitComponents)
+            {
+                _resolver.Inject(component);
+                component.InitializeComponent(this);
+            }
         }
 
         public abstract void ExecuteAction();
