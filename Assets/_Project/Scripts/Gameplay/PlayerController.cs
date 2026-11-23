@@ -17,9 +17,8 @@ namespace ShroomDefense.Gameplay
         private PlayerUIHandCardsController _handCardsController;
 
         [SerializeField] private int _currentHP = 100;
-        [SerializeField] private int _maxHP = 100;
+        [field:SerializeField] public StatController StatController { get; private set; } = new();
         [field:SerializeField] public int CurrentMana { get; private set; } = 0;
-        [field:SerializeField] public int MaxMana { get; private set; } = 0;
         [field:SerializeField] public int HandSize = 5;
 
         public IReadOnlyCollection<Card> Hand => _hand.AsReadOnly();
@@ -27,13 +26,6 @@ namespace ShroomDefense.Gameplay
         public int CurrentHP
         {
             get => _currentHP;
-            private set => _currentHP = Mathf.Clamp(value, 0, _maxHP);
-        }
-
-        public int MaxHP
-        {
-            get => _maxHP;
-            private set => _maxHP = Mathf.Max(value, 0);
         }
 
 
@@ -55,8 +47,8 @@ namespace ShroomDefense.Gameplay
 
         public void TakeDamage(Damage damage)
         {
-            CurrentHP -= damage.Amount;
-            if(CurrentHP <= 0)
+            _currentHP -= damage.Amount;
+            if(_currentHP <= 0)
             {
                 Die();
             }
@@ -111,22 +103,6 @@ namespace ShroomDefense.Gameplay
         private void Die()
         {
             Debug.Log("Player has died.");
-        }
-
-
-        public void IncreaseMaxMana(int amount)
-        {
-            MaxMana += amount;
-        }
-
-        public void DecreaseMaxMana(int amount)
-        {
-            MaxMana = Mathf.Max(0, MaxMana - amount);
-
-            if (CurrentMana > MaxMana)
-            {
-                CurrentMana = MaxMana;
-            }
         }
     }
 }

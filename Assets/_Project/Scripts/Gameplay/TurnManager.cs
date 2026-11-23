@@ -72,7 +72,7 @@ namespace ShroomDefense
 
         public void EnemyAdvance()
         {
-            List<EnemyUnit> units = new List<EnemyUnit>();
+            List<AdvanceUnitComponent> unitsToAdvance = new List<AdvanceUnitComponent>();
             foreach (var row in _battleMap.Rows)
             {
                 foreach (var pair in row.Units)
@@ -81,13 +81,13 @@ namespace ShroomDefense
                     {
                         continue;
                     }
-                    if(pair.Value is EnemyUnit enemyUnit)
+                    if(pair.Value.TryGetComponent(out AdvanceUnitComponent advanceUnitComponent))
                     {
-                        units.Add(enemyUnit);
+                        unitsToAdvance.Add(advanceUnitComponent);
                     }
                 }
             }
-            foreach (var unit in units)
+            foreach (var unit in unitsToAdvance)
             {
                 unit.Advance();
             }
@@ -99,7 +99,8 @@ namespace ShroomDefense
             // TODO добавть асинк чтобы все не моментально просиходило
             foreach (var row in _battleMap.Rows)
             {
-                foreach (var pair in row.Units)
+                var unitsSnapshot = new Dictionary<int, Unit>(row.Units);
+                foreach (var pair in unitsSnapshot)
                 {
                     if(pair.Key >=0)
                     {
@@ -118,7 +119,8 @@ namespace ShroomDefense
             // TODO добавть асинк чтобы все не моментально просиходило
             foreach (var row in _battleMap.Rows)
             {
-                foreach (var pair in row.Units)
+                var unitsSnapshot = new Dictionary<int, Unit>(row.Units);
+                foreach (var pair in unitsSnapshot)
                 {
                     if (pair.Key <= 0)
                     {

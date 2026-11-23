@@ -1,25 +1,20 @@
-﻿using ShroomDefense.Gameplay;
-using UnityEngine;
-using System.Linq;
+﻿using UnityEngine;
 
-
-namespace ShroomDefense
+namespace ShroomDefense.Gameplay
 {
-    public class MushroomCatcherUnit : EnemyUnit
+    [AddComponentMenu("UnitComponents/MushroomCatcherOnAction")]
+    public class MushroomCatcherUnit : UnitComponent
     {
-        public override void ExecuteAction()
+        public override void OnExecuteAction()
         {
-            var playerMushrooms = _battleMap.Rows
-                .SelectMany(row => row.Units.Values)
-                .Where(unit => unit.Position.x < 0 && unit.CurrentHP > 0)
-                .ToList();
+            var enemyUnits = unit.FindAllUnitsOnEnemyField();
 
-            if (playerMushrooms.Count > 0)
+            if (enemyUnits.Count > 0)
             {
-                int randomIndex = Random.Range(0, playerMushrooms.Count);
-                Unit targetToEat = playerMushrooms[randomIndex];
+                int randomIndex = Random.Range(0, enemyUnits.Count);
+                Unit targetToEat = enemyUnits[randomIndex];
 
-                targetToEat.TakeDamage(new Damage(this, 9999));
+                targetToEat.TakeDamage(new Damage(unit, 9999));
                 Debug.Log($"Гриболов съел {targetToEat.name}!");
             }
         }
