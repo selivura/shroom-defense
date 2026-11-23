@@ -1,3 +1,4 @@
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
@@ -20,6 +21,7 @@ namespace ShroomDefense.Gameplay
         [field:SerializeField] public StatController StatController { get; private set; } = new();
         [field:SerializeField] public int CurrentMana { get; private set; } = 0;
         [field:SerializeField] public int HandSize = 5;
+       
 
         public IReadOnlyCollection<Card> Hand => _hand.AsReadOnly();
 
@@ -56,13 +58,9 @@ namespace ShroomDefense.Gameplay
 
         private void RefillHand()
         {
-            while(_hand.Count < HandSize && _currentDeck.CardPrefabs.Count > 0)
+            while(DrawRandomCardFromDeck(false))
             {
-                int randomIndex = UnityEngine.Random.Range(0, _currentDeck.CardPrefabs.Count);
-                Card drawnCard = _currentDeck.CardPrefabs[randomIndex];
-
-                _hand.Add(_cardFactory.Create(drawnCard));
-                _currentDeck.CardPrefabs.RemoveAt(randomIndex);
+                // Continue drawing cards until the hand is full or the deck is empty
             }
             StringBuilder handContents = new StringBuilder("Hand contents:");
             foreach (var item in _hand)
@@ -72,6 +70,56 @@ namespace ShroomDefense.Gameplay
             Debug.Log(handContents);
 
             _handCardsController?.SyncHand(_hand);
+        }
+        /// <summary>
+        /// Дать игроку в руку определенную карту
+        /// </summary>
+        /// <param name="cardPrefab"></param>
+        /// <param name="bypassMaxHandSize"></param>
+        /// <returns></returns>
+        /// <exception cref="NullReferenceException"></exception>
+        public bool DrawCard(Card cardPrefab, bool bypassMaxHandSize = false)
+        {
+            if (!CanDrawCard(bypassMaxHandSize))
+            {
+                return false;
+            }
+
+            if (_cardFactory == null)
+            {
+                throw new NullReferenceException($"{name}: Card factory was not injected into player controller.");
+            }
+
+            _hand.Add(_cardFactory.Create(cardPrefab));
+            _handCardsController?.SyncHand(_hand);
+            return true;
+        }
+
+        public bool CanDrawCardFromDeck(bool bypassMaxHandSize = false)
+        {
+            return CanDrawCard(bypassMaxHandSize) && _currentDeck != null && _currentDeck.CardPrefabs.Count > 0;
+        }
+        public bool CanDrawCard(bool bypassMaxHandSize = false)
+        {
+            return (bypassMaxHandSize || _hand.Count < HandSize);
+        }
+
+        /// <summary>
+        /// Дать игроку в руку случайную карту из колоды, если в ней остались карты
+        /// </summary>
+        /// <param name="bypassMaxHandSize"></param>
+        /// <returns></returns>
+        public bool DrawRandomCardFromDeck(bool bypassMaxHandSize = false)
+        {
+            if (!CanDrawCardFromDeck(bypassMaxHandSize))
+            {
+                return false;
+            }
+
+            int randomIndex = UnityEngine.Random.Range(0, _currentDeck.CardPrefabs.Count);
+            DrawCard(_currentDeck.CardPrefabs[randomIndex]);
+            _currentDeck.CardPrefabs.RemoveAt(randomIndex);
+            return true;
         }
 
         public bool PlayCardFromHand(int index, CardTargetData targetData)
