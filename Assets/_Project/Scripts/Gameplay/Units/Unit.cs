@@ -11,6 +11,7 @@ namespace ShroomDefense.Gameplay
     public class Unit : MonoBehaviour, IDamageable, IDamageSource
     {
         [SerializeField] private int _currentHP = 5;
+        [SerializeField] private float _delayBetweenActions = 0.5f;
         public UnitFaction Faction;
         [field: SerializeField] public StatController StatController;
         private List<UnitComponent> _unitComponents = new();
@@ -87,6 +88,7 @@ namespace ShroomDefense.Gameplay
             foreach (var component in _unitComponents)
             {
                 await component.OnExecuteAction();
+                await UniTask.WaitForSeconds(_delayBetweenActions);
             }
         }
         public void TakeDamage(Damage damage)

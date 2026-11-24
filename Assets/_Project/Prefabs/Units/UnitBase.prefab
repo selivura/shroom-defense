@@ -47,6 +47,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShroomDefense.Gameplay.Unit
   _currentHP: 5
+  _delayBetweenActions: 0.5
+  Faction: {fileID: 0}
   StatController:
     Stats:
     - key: {fileID: 11400000, guid: 98a67a176e326fc449d2caca0974326b, type: 2}
