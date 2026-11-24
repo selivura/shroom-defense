@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.Properties;
 using UnityEngine;
 using UnityEngine.Events;
 using VContainer;
@@ -42,6 +43,7 @@ namespace ShroomDefense.Gameplay
             }
         }
 
+        [CreateProperty]
         public int CurrentHP
         {
             get => _currentHP;

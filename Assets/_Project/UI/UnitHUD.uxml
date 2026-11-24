@@ -1,0 +1,7 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/_Project/UI/UnitHUD_styles.uss?fileID=7433441132597879392&amp;guid=4fdad097a93d7aa429b8ff7898f55da8&amp;type=3#UnitHUD_styles"/>
+    <ui:VisualElement name="UnitHUD" class="unit-hud" style="flex-grow: 1;">
+        <ui:Label text="?" name="Health" class="health-label"/>
+        <ui:Label text="?" name="Damage" class="damage-label"/>
+    </ui:VisualElement>
+</ui:UXML>
