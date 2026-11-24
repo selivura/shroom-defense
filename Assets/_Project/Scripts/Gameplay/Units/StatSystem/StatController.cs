@@ -75,5 +75,16 @@ namespace ShroomDefense.Gameplay
                 }
             }
         }
+
+        public void RemoveModifierFromAllStatsOfTypes(List<StatType> statTypes, StatModifier modifier)
+        {
+            foreach (var statType in statTypes)
+            {
+                if (GetStat(statType, out var stat))
+                {
+                    stat.RemoveModifier(modifier);
+                }
+            }
+        }
     }
 }

@@ -91,6 +91,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ShroomDefense.Gameplay.DebuffAllEnemyUnitsUnitComponent
   _buffedStatTypes:
   - {fileID: 11400000, guid: 083da34afcc63734bbdbce1ac20a85cf, type: 2}
+  _debuffDuration: 2
   _statModifier:
     Value: -1
     Type: 0
