@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &3433449773526098864
+--- !u!1001 &4747080466398307557
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -49,19 +49,36 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6750255117481278737, guid: 32903612c352ae34495cd5f7fbe15ab8, type: 3}
-      propertyPath: StatController.Stats.Array.data[0].value._baseValue
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6750255117481278737, guid: 32903612c352ae34495cd5f7fbe15ab8, type: 3}
-      propertyPath: StatController.Stats.Array.data[1].value._baseValue
-      value: 2
+      propertyPath: _currentHP
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8050393210091718728, guid: 32903612c352ae34495cd5f7fbe15ab8, type: 3}
       propertyPath: m_Name
-      value: 'SilentGrib [NE DODELAN]'
+      value: BlednayaPoganka
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8050393210091718728, guid: 32903612c352ae34495cd5f7fbe15ab8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -6708342588387058457}
   m_SourcePrefab: {fileID: 100100000, guid: 32903612c352ae34495cd5f7fbe15ab8, type: 3}
+--- !u!1 &3339904492352449709 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8050393210091718728, guid: 32903612c352ae34495cd5f7fbe15ab8, type: 3}
+  m_PrefabInstance: {fileID: 4747080466398307557}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &-6708342588387058457
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3339904492352449709}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fba74e472c553d24c91e771d985ebd1b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ShroomDefense.Gameplay.SelfDamageActionUnitComponent
+  _damageAmount: 2
