@@ -64,7 +64,12 @@ namespace ShroomDefense.Gameplay
                 {
                     continue;
                 }
-                var createdUnit = _unitFactory.Create(_enemiesForSpawnQueue.Dequeue());
+                var prefab = _enemiesForSpawnQueue.Dequeue();
+                if (prefab == null)
+                {
+                    continue;
+                }
+                var createdUnit = _unitFactory.Create(prefab);
                 _battleMap.PlaceUnitAt(new Vector2Int(column, i), createdUnit);
             }
             _turnManager.FinishActions();
