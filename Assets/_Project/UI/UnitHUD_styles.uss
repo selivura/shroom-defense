@@ -1,0 +1,18 @@
+.unity-label {
+    font-size: 20px;
+}
+
+.health-label {
+    color: rgb(255, 0, 0);
+}
+
+.damage-label {
+    color: rgb(255, 224, 0);
+}
+
+.unit-hud {
+    flex-direction: row;
+    justify-content: space-between;
+    align-self: center;
+    align-items: flex-end;
+}
