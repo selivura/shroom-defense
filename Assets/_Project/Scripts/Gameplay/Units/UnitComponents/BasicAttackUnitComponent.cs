@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using VContainer;
 
@@ -18,7 +19,7 @@ namespace ShroomDefense.Gameplay
         {
             _player = player;
         }
-        public override void OnExecuteAction()
+        public override async UniTask OnExecuteAction()
         {
             if (!unit.StatController.GetStatValue(_attackStatType, out var statValue))
             {

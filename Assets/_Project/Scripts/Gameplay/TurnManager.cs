@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using NaughtyAttributes;
 using ShroomDefense.EventChannels;
 using ShroomDefense.Gameplay;
@@ -24,6 +25,7 @@ namespace ShroomDefense
 
         [SerializeField] [Required] private EventChannel _playerExecuteEndChannel;
         [SerializeField] [Required] private EventChannel _enemyExecuteEndChannel;
+        [SerializeField] private float _actionExecutionDelay = .5f;
 
         [Inject]
         public void Construct(BattleMap map)
@@ -49,11 +51,11 @@ namespace ShroomDefense
                     break;
                 case TurnType.PlayerAdvance:
                     SetTurn(TurnType.PlayerExecute);
-                    ExecutePlayerTurn();
+                    UniTask.Void(() => ExecuteTurn(false));
                     break;
                 case TurnType.PlayerExecute:
                     SetTurn(TurnType.EnemyExecute);
-                    ExecuteEnemyTurn();
+                    UniTask.Void(() => ExecuteTurn(true));
                     break;
                 case TurnType.EnemyExecute:
                     SetTurn(TurnType.EnemyAdvance);
@@ -94,43 +96,33 @@ namespace ShroomDefense
             Debug.Log("Enemy turn advance...");
         }
 
-        private void ExecutePlayerTurn()
+        private async UniTaskVoid ExecuteTurn(bool isEnemyTurn)
         {
-            // TODO добавть асинк чтобы все не моментально просиходило
             foreach (var row in _battleMap.Rows)
             {
                 var unitsSnapshot = new Dictionary<int, Unit>(row.Units);
                 foreach (var pair in unitsSnapshot)
                 {
-                    if(pair.Key >=0)
+                    if (isEnemyTurn)
                     {
-                        continue;
+                        if (pair.Key >= 0)
+                        {
+                            continue;
+                        }
                     }
-                    pair.Value.ExecuteAction();
-                }
-            }
-            _playerExecuteEndChannel.Invoke(new());
-            Debug.Log("Player turn execute...");
-            FinishActions();
-        }
+                    else
+                    {
+                        if (pair.Key <= 0)
+                        {
+                            continue;
+                        }
+                    }
 
-        private void ExecuteEnemyTurn()
-        {
-            // TODO добавть асинк чтобы все не моментально просиходило
-            foreach (var row in _battleMap.Rows)
-            {
-                var unitsSnapshot = new Dictionary<int, Unit>(row.Units);
-                foreach (var pair in unitsSnapshot)
-                {
-                    if (pair.Key <= 0)
-                    {
-                        continue;
-                    }
-                    pair.Value.ExecuteAction();
+                    await pair.Value.ExecuteAction();
+                    await UniTask.WaitForSeconds(_actionExecutionDelay);
                 }
             }
             _enemyExecuteEndChannel.Invoke(new());
-            Debug.Log("Enemy turn execute...");
             FinishActions();
         }
     }

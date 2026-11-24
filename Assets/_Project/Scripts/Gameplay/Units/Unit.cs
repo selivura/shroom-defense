@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -81,11 +82,11 @@ namespace ShroomDefense.Gameplay
         /// <summary>
         /// В компонентах вызывается <see cref="UnitComponent.OnExecuteAction"/> в порядке в котором они расположены в инспекторе
         /// </summary>
-        public void ExecuteAction()
+        public async UniTask ExecuteAction()
         {
             foreach (var component in _unitComponents)
             {
-                component.OnExecuteAction();
+                await component.OnExecuteAction();
             }
         }
         public void TakeDamage(Damage damage)

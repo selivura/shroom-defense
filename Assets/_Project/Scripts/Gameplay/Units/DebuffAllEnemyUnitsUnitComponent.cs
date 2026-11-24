@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Cysharp.Threading.Tasks;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace ShroomDefense.Gameplay
@@ -9,7 +10,7 @@ namespace ShroomDefense.Gameplay
         [SerializeField] private List<StatType> _buffedStatTypes;
 
         [SerializeField] private StatModifier _statModifier = new(-1, StatModType.Flat);
-        public override void OnExecuteAction()
+        public override async UniTask OnExecuteAction()
         {
             var enemies = unit.FindAllUnitsOnEnemyField();
             _statModifier.WithSource(unit);

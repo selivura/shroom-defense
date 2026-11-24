@@ -148,6 +148,11 @@ namespace ShroomDefense.Gameplay
 
         public void EndTurn()
         {
+            if(_currentHP <= 0)
+            {
+                Debug.LogWarning("Cannot end turn. Player is dead.");
+                return;
+            }
             if(_turnManager.CurrentTurn != TurnType.PlayerAdvance)
             {
                 Debug.LogWarning("Cannot end turn. It's not the player's turn.");
@@ -158,7 +163,7 @@ namespace ShroomDefense.Gameplay
 
         private void Die()
         {
-            Debug.Log("Player has died.");
+            Debug.Log("Player has died. GAME OVER.");
         }
     }
 }

@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace ShroomDefense.Gameplay
@@ -6,7 +7,7 @@ namespace ShroomDefense.Gameplay
     public class HealEveryoneOnMyTeam : UnitComponent
     {
         [SerializeField] private int _healAmount = 1;
-        public override void OnExecuteAction()
+        public override async UniTask OnExecuteAction()
         {
             var allies = unit.FindAllUnitsOnMyTeam();
             foreach (var ally in allies)
