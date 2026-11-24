@@ -11,7 +11,7 @@ namespace ShroomDefense.Gameplay
         private CardFactory _cardFactory;
         private PersistentDeck _persistentDeck;
         private Deck _currentDeck;
-        private List<Card> _hand = new();
+        private List<Card> _cardsInHand = new();
 
         private BattleMap _battleMap;
         private TurnManager _turnManager;
@@ -19,11 +19,11 @@ namespace ShroomDefense.Gameplay
 
         [SerializeField] private int _currentHP = 100;
         [field:SerializeField] public StatController StatController { get; private set; } = new();
-        [field:SerializeField] public int CurrentMana { get; private set; } = 0;
+        [field:SerializeField] public int CurrentMana { get; private set; } = 999;
         [field:SerializeField] public int HandSize = 5;
        
 
-        public IReadOnlyCollection<Card> Hand => _hand.AsReadOnly();
+        public IReadOnlyCollection<Card> Hand => _cardsInHand.AsReadOnly();
 
         public int CurrentHP
         {
@@ -63,13 +63,13 @@ namespace ShroomDefense.Gameplay
                 // Continue drawing cards until the hand is full or the deck is empty
             }
             StringBuilder handContents = new StringBuilder("Hand contents:");
-            foreach (var item in _hand)
+            foreach (var item in _cardsInHand)
             {
                 handContents.AppendLine(item.name);
             }
             Debug.Log(handContents);
 
-            _handCardsController?.SyncHand(_hand);
+            _handCardsController?.SyncHand(_cardsInHand);
         }
         /// <summary>
         /// Дать игроку в руку определенную карту
@@ -90,8 +90,8 @@ namespace ShroomDefense.Gameplay
                 throw new NullReferenceException($"{name}: Card factory was not injected into player controller.");
             }
 
-            _hand.Add(_cardFactory.Create(cardPrefab));
-            _handCardsController?.SyncHand(_hand);
+            _cardsInHand.Add(_cardFactory.Create(cardPrefab));
+            _handCardsController?.SyncHand(_cardsInHand);
             return true;
         }
 
@@ -101,7 +101,7 @@ namespace ShroomDefense.Gameplay
         }
         public bool CanDrawCard(bool bypassMaxHandSize = false)
         {
-            return (bypassMaxHandSize || _hand.Count < HandSize);
+            return (bypassMaxHandSize || _cardsInHand.Count < HandSize);
         }
 
         /// <summary>
@@ -129,21 +129,44 @@ namespace ShroomDefense.Gameplay
 
         public bool PlayCardFromHand(int index, CardTargetData targetData)
         {
+            if(targetData == null)
+            {
+                throw new ArgumentNullException(nameof(targetData), "Target data cannot be null when playing a card.");
+            }
             if (_turnManager.CurrentTurn != TurnType.PlayerAdvance)
             {
                 return false;
             }
-            if (index < 0 || index >= _hand.Count)
+            if (index < 0 || index >= _cardsInHand.Count)
             {
                 return false;
             }
 
-            Card card = _hand[index];
+            Card card = _cardsInHand[index];
+            if(CurrentMana < card.ManaCost)
+            {
+                return false;
+            }
+            CurrentMana -= card.ManaCost;
+
             card.ExecuteAction(targetData);
-            _hand.RemoveAt(index);
+            _cardsInHand.RemoveAt(index);
             Destroy(card.gameObject);
             RefillHand();
             return true;
+        }
+
+        public void DropCardFromHand(int index)
+        {
+            if (_cardsInHand.Count <= index) return;
+            _cardsInHand.RemoveAt(index);
+            _handCardsController.SyncHand(_cardsInHand);
+        }
+
+        public void DropRandomCardFromHand()
+        {
+            int randomIndex = UnityEngine.Random.Range(0, _cardsInHand.Count);
+            DropCardFromHand(randomIndex);
         }
 
         public void EndTurn()
