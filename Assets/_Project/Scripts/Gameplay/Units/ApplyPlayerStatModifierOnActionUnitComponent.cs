@@ -1,4 +1,5 @@
-﻿using ShroomDefense.Gameplay;
+﻿using Cysharp.Threading.Tasks;
+using ShroomDefense.Gameplay;
 using System.Collections.Generic;
 using UnityEngine;
 using VContainer;
@@ -18,7 +19,7 @@ namespace ShroomDefense.Gameplay
             _player = player;
         }
 
-        public override void OnExecuteAction()
+        public override async UniTask OnExecuteAction()
         {
             _statModifier.WithSource(unit);
             _player.StatController.AddModifierToAllStatsOfTypes(_buffedStatTypes, _statModifier);

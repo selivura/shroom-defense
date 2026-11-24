@@ -1,4 +1,5 @@
-﻿using NaughtyAttributes;
+﻿using Cysharp.Threading.Tasks;
+using NaughtyAttributes;
 using System;
 using UnityEngine;
 using VContainer;
@@ -19,7 +20,7 @@ namespace ShroomDefense.Gameplay
             _battleMap = battleMap;
         }
 
-        public override void OnExecuteAction()
+        public override async UniTask OnExecuteAction()
         {
             Vector2Int? emptyCell = FindEmptyEnemyCell();
             if (_unitPrefab == null)

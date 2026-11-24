@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,7 @@ namespace ShroomDefense.Gameplay
     public class Unit : MonoBehaviour, IDamageable, IDamageSource
     {
         [SerializeField] private int _currentHP = 5;
+        [SerializeField] private float _delayBetweenActions = 0.5f;
         public UnitFaction Faction;
         [field: SerializeField] public StatController StatController;
         private List<UnitComponent> _unitComponents = new();
@@ -83,11 +85,12 @@ namespace ShroomDefense.Gameplay
         /// <summary>
         /// В компонентах вызывается <see cref="UnitComponent.OnExecuteAction"/> в порядке в котором они расположены в инспекторе
         /// </summary>
-        public void ExecuteAction()
+        public async UniTask ExecuteAction()
         {
             foreach (var component in _unitComponents)
             {
-                component.OnExecuteAction();
+                await component.OnExecuteAction();
+                await UniTask.WaitForSeconds(_delayBetweenActions);
             }
         }
         public void TakeDamage(Damage damage)

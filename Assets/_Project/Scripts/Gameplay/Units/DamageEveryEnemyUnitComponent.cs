@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace ShroomDefense.Gameplay
@@ -6,7 +7,7 @@ namespace ShroomDefense.Gameplay
     public class DamageEveryEnemyUnitComponent : UnitComponent
     {
         [SerializeField] private int _damageAmount = 1;
-        public override void OnExecuteAction()
+        public override async UniTask OnExecuteAction()
         {
             var enemies = unit.FindAllUnitsOnEnemyField();
             foreach (var enemy in enemies)

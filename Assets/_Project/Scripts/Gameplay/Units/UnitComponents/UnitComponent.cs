@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace ShroomDefense.Gameplay
@@ -25,7 +26,7 @@ namespace ShroomDefense.Gameplay
 
         }
 
-        public virtual void OnExecuteAction()
+        public virtual async UniTask OnExecuteAction()
         {
 
         }

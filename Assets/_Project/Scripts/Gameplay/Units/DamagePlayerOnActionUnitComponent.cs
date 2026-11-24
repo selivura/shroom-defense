@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Cysharp.Threading.Tasks;
+using UnityEngine;
 using VContainer;
 
 namespace ShroomDefense.Gameplay
@@ -15,7 +16,7 @@ namespace ShroomDefense.Gameplay
             _player = player;
         }
 
-        public override void OnExecuteAction()
+        public override async UniTask OnExecuteAction()
         {
             _player.TakeDamage(new Damage(unit, _damageAmount));
             Debug.Log($"{unit.name} deals {_damageAmount} damage TO PLAYER!");

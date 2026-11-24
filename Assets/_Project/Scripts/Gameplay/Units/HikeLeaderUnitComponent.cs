@@ -1,7 +1,8 @@
-﻿using ShroomDefense.Gameplay;
-using UnityEngine;
-using System.Linq;
+﻿using Cysharp.Threading.Tasks;
 using NaughtyAttributes;
+using ShroomDefense.Gameplay;
+using System.Linq;
+using UnityEngine;
 
 namespace ShroomDefense.Gameplay
 {
@@ -32,7 +33,7 @@ namespace ShroomDefense.Gameplay
                 ownMaxHealthStat.AddModifier(_maxHealthModifier);
             }
         }
-        public override void OnExecuteAction()
+        public override async UniTask OnExecuteAction()
         {
             int otherForagersCount = unit.FindAllUnitsOnMyTeam()
                 .Count(ally => ally != unit && ally.CurrentHP > 0);

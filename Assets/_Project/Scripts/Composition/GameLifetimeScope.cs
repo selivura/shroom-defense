@@ -4,7 +4,7 @@ using UnityEngine;
 using VContainer;
 using VContainer.Unity;
 
-namespace ShroomDefense
+namespace ShroomDefense.Composition
 {
     public class GameLifetimeScope : LifetimeScope
     {

@@ -1,11 +1,12 @@
-﻿using UnityEngine;
+﻿using Cysharp.Threading.Tasks;
+using UnityEngine;
 
 namespace ShroomDefense.Gameplay
 {
     [AddComponentMenu("UnitComponents/MushroomCatcherOnAction")]
     public class MushroomCatcherUnit : UnitComponent
     {
-        public override void OnExecuteAction()
+        public override async UniTask OnExecuteAction()
         {
             var enemyUnits = unit.FindAllUnitsOnEnemyField();
 

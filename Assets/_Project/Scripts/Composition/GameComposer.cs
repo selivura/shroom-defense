@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using VContainer.Unity;
 
-namespace ShroomDefense
+namespace ShroomDefense.Composition
 {
     public class GameComposer : IStartable
     {

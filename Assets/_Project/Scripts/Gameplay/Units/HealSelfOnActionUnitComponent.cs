@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Cysharp.Threading.Tasks;
+using UnityEngine;
 
 namespace ShroomDefense.Gameplay
 {
@@ -6,7 +7,7 @@ namespace ShroomDefense.Gameplay
     public class HealSelfOnActionUnitComponent : UnitComponent
     {
         [SerializeField] private int _healAmount = 3;
-        public override void OnExecuteAction()
+        public override async UniTask OnExecuteAction()
         {
             unit.Heal(_healAmount);
             Debug.Log($"{unit.name} восстановил(-а) {_healAmount} здоровья!");
