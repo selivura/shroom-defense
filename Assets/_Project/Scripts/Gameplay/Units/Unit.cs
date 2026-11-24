@@ -13,13 +13,20 @@ namespace ShroomDefense.Gameplay
     {
         [SerializeField] private int _currentHP = 5;
         [SerializeField] private float _delayBetweenActions = 0.5f;
-        public UnitFaction Faction;
         [field: SerializeField] public StatController StatController;
         private List<UnitComponent> _unitComponents = new();
         private IObjectResolver _resolver;
         private bool _isShielded;
         private Vector2Int _position;
         private bool _isPositionDirty = true;
+        protected BattleMap _battleMap;
+        
+        [CreateProperty]
+        public int CurrentHP
+        {
+            get => _currentHP;
+        }
+        public UnitFaction Faction;
         public Vector2Int Position
         {
             get
@@ -45,14 +52,10 @@ namespace ShroomDefense.Gameplay
             }
         }
 
-        [CreateProperty]
-        public int CurrentHP
-        {
-            get => _currentHP;
-        }
         public UnityEvent OnUnitDeath;
+        public UnityEvent OnBeforeExecutingActions;
+        public UnityEvent OnAfterExecutingActions;
 
-        protected BattleMap _battleMap;
 
         [Inject]
         public void Construct(BattleMap map, IObjectResolver resolver)
@@ -87,11 +90,14 @@ namespace ShroomDefense.Gameplay
         /// </summary>
         public async UniTask ExecuteAction()
         {
+            OnBeforeExecutingActions.Invoke();
             foreach (var component in _unitComponents)
             {
                 await component.OnExecuteAction();
                 await UniTask.WaitForSeconds(_delayBetweenActions);
             }
+            OnAfterExecutingActions.Invoke();
+            await UniTask.WaitForSeconds(_delayBetweenActions);
         }
         public void TakeDamage(Damage damage)
         {

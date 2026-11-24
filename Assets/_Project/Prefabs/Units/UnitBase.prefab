@@ -161,6 +161,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6553438655856027687}
   - component: {fileID: 1197741864854228683}
+  - component: {fileID: 6733102953670676770}
   - component: {fileID: 1879837789999974519}
   m_Layer: 0
   m_Name: UnitBase
@@ -200,7 +201,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ShroomDefense.Gameplay.Unit
   _currentHP: 5
   _delayBetweenActions: 0.5
-  Faction: {fileID: 0}
   StatController:
     Stats:
     - key: {fileID: 11400000, guid: 98a67a176e326fc449d2caca0974326b, type: 2}
@@ -209,9 +209,28 @@ MonoBehaviour:
     - key: {fileID: 11400000, guid: 083da34afcc63734bbdbce1ac20a85cf, type: 2}
       value:
         _baseValue: 1
+  Faction: {fileID: 0}
   OnUnitDeath:
     m_PersistentCalls:
       m_Calls: []
+  OnBeforeExecutingActions:
+    m_PersistentCalls:
+      m_Calls: []
+  OnAfterExecutingActions:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &6733102953670676770
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2488871400966732690}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8330f3546af40ff4899e853c52104b39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ShroomDefense.Gameplay.StatusEffectsController
 --- !u!114 &1879837789999974519
 MonoBehaviour:
   m_ObjectHideFlags: 0
