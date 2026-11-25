@@ -97,11 +97,11 @@ namespace ShroomDefense.Gameplay
             OnBeforeExecutingActions.Invoke();
             foreach (var component in _unitComponents)
             {
+                await UniTask.WaitForSeconds(component.DelayBeforeAction);
                 await component.OnExecuteAction();
-                await UniTask.WaitForSeconds(_delayBetweenActions);
+                await UniTask.WaitForSeconds(component.DelayAfterAction);
             }
             OnAfterExecutingActions.Invoke();
-            await UniTask.WaitForSeconds(_delayBetweenActions);
         }
         public void TakeDamage(Damage damage)
         {

@@ -12,6 +12,4 @@ namespace ShroomDefense.Gameplay
         [SerializeField] private List<Wave> _waves;
         public IReadOnlyList<Wave> Waves => _waves;
     }
-
-
 }

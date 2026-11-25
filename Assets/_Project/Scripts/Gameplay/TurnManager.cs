@@ -59,7 +59,6 @@ namespace ShroomDefense
                     break;
                 case TurnType.EnemyExecute:
                     SetTurn(TurnType.EnemyAdvance);
-                    Debug.Log("Enemy advance turn!");
                     break;
                 default:
                     break;
@@ -93,7 +92,6 @@ namespace ShroomDefense
             {
                 unit.Advance();
             }
-            Debug.Log("Enemy turn advance...");
         }
 
         private async UniTaskVoid ExecuteTurn(bool isEnemyTurn)
@@ -105,14 +103,14 @@ namespace ShroomDefense
                 {
                     if (isEnemyTurn)
                     {
-                        if (pair.Key >= 0)
+                        if (pair.Key <= 0)
                         {
                             continue;
                         }
                     }
                     else
                     {
-                        if (pair.Key <= 0)
+                        if (pair.Key >= 0)
                         {
                             continue;
                         }

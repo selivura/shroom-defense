@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using VContainer;
@@ -13,6 +14,8 @@ namespace ShroomDefense.Gameplay
 
         [field: SerializeField] public int CurrentWaveIndex { get; private set; } = 0;
 
+        private int _currentWaveDuration = 0;
+        private List<Unit> _currentWaveUnits = new();
         private Queue<Unit> _enemiesForSpawnQueue = new();
 
         [Inject]
@@ -26,32 +29,58 @@ namespace ShroomDefense.Gameplay
             CurrentWaveIndex = -1;
         }
 
+
+        // 0. Update wave duration counter
+        // 1. Check if wave duration is over OR all enemies on field are dead. If not return
+        // 2. Increment wave index
+        // 3. Is the wave index valid? If not, end the game
+        // 4. Spawn enemies for the current wave
+        // 5. Update wave duration counter
         private void OnTurnChanged(TurnType turnType)
         {
             if (turnType != TurnType.EnemyAdvance) return;
             _turnManager.EnemyAdvance();
+            Debug.Log("Enemy advanced...");
 
+            _currentWaveDuration--;
 
-            if (_enemiesForSpawnQueue.Count <= 0)
+            if (_enemiesForSpawnQueue.Count > 0)
             {
-                CurrentWaveIndex++;
-                if (CurrentWaveIndex >= LevelData.Waves.Count)
-                {
-                    Debug.Log("All waves were passed!");
-                }
-                else foreach (var unitPrefab in LevelData.Waves[CurrentWaveIndex].UnitPrefabs)
-                {
-                    _enemiesForSpawnQueue.Enqueue(unitPrefab);
-                }
+                TrySpawningQueuedEnemies();
+                _turnManager.FinishActions();
+                return;
             }
-
-            if (_enemiesForSpawnQueue.Count <= 0)
+            RefreshUnitList();
+            if (_currentWaveDuration > 0 && _currentWaveUnits.Count > 0)
             {
-                Debug.Log("All waves enemies are spawned!");
                 _turnManager.FinishActions();
                 return;
             }
 
+            CurrentWaveIndex++;
+
+            if (CurrentWaveIndex >= LevelData.Waves.Count)
+            {
+                Debug.Log("All waves were passed! PLAYER VICTORY!");
+                _turnManager.FinishActions();
+                return;
+            }
+            Debug.Log("NEW WAVE!");
+
+            _currentWaveDuration = LevelData.Waves[CurrentWaveIndex].WaveDuration;
+
+            foreach (var unitPrefab in LevelData.Waves[CurrentWaveIndex].UnitPrefabs)
+            {
+                _enemiesForSpawnQueue.Enqueue(unitPrefab);
+            }
+
+            TrySpawningQueuedEnemies();
+            RefreshUnitList();
+            _turnManager.FinishActions();
+        }
+
+        private void TrySpawningQueuedEnemies()
+        {
             for (int i = 0; i < LevelData.RowsNumber; i++)
             {
                 if (_enemiesForSpawnQueue.Count <= 0)
@@ -71,8 +100,26 @@ namespace ShroomDefense.Gameplay
                 }
                 var createdUnit = _unitFactory.Create(prefab);
                 _battleMap.PlaceUnitAt(new Vector2Int(column, i), createdUnit);
+                _currentWaveUnits.Add(createdUnit);
             }
-            _turnManager.FinishActions();
+        }
+
+        private void RefreshUnitList()
+        {
+            var aliveUnits = new List<Unit>();
+            foreach (var unit in _currentWaveUnits)
+            {
+                if(unit == null)
+                {
+                    continue;
+                }
+                if(unit.CurrentHP <= 0)
+                {
+                    continue;
+                }
+                aliveUnits.Add(unit);
+            }
+            _currentWaveUnits = aliveUnits;
         }
     }
 }

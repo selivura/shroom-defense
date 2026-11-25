@@ -7,6 +7,8 @@ namespace ShroomDefense.Gameplay
     public abstract class UnitComponent : MonoBehaviour
     {
         protected Unit unit { get; private set; }
+        public float DelayBeforeAction = 0;
+        public float DelayAfterAction = 0.1f;
 
         /// <summary>
         /// Используется <see cref="Unit"/> для инициализации компонента
