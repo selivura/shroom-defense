@@ -5,13 +5,14 @@ using System.Text;
 using UnityEngine;
 using UnityEngine.Rendering.VirtualTexturing;
 using VContainer;
+using VContainer.Unity;
 
 namespace ShroomDefense.Gameplay
 {
     public class PlayerController : MonoBehaviour, IDamageable
     {
         private CardFactory _cardFactory;
-        private PersistentDeck _persistentDeck;
+        private DeckbuildResults _persistentDeck;
         private Deck _currentDeck;
         private List<Card> _cardsInHand = new();
 
@@ -38,7 +39,7 @@ namespace ShroomDefense.Gameplay
 
 
         [Inject]
-        public void Construct(IObjectResolver resolver, PersistentDeck persDeck, BattleMap map, TurnManager turnManager, CardFactory cardFactory, PlayerUIHandCardsController handCardsController)
+        public void Construct(IObjectResolver resolver, DeckbuildResults persDeck, BattleMap map, TurnManager turnManager, CardFactory cardFactory, PlayerUIHandCardsController handCardsController)
         {
             _resolver = resolver;
             _persistentDeck = persDeck;
@@ -85,8 +86,6 @@ namespace ShroomDefense.Gameplay
             {
                 DrawRandomCardFromDeck();
             }
-            // REMOVE ME: FOR TESTING ONLY
-            AssignTool(_tool);
         }
 
         public void TakeDamage(Damage damage)
@@ -233,10 +232,9 @@ namespace ShroomDefense.Gameplay
             _tool.UseTool();
         }
 
-        public void AssignTool(HeroTool tool)
+        public void CreateAndAssignTool(HeroTool toolPrefab)
         {
-            _tool = tool;
-            _resolver.Inject(_tool);
+            _tool = _resolver.Instantiate(toolPrefab);
         }
 
         private void OnToolSuccessfulyUsed()
