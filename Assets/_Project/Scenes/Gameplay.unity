@@ -278,8 +278,12 @@ MonoBehaviour:
     - key: {fileID: 11400000, guid: 98a67a176e326fc449d2caca0974326b, type: 2}
       value:
         _baseValue: 10
-  <CurrentMana>k__BackingField: 999
-  HandSize: 5
+    - key: {fileID: 11400000, guid: 7f495c6ab8dd5a44887531606536aeae, type: 2}
+      value:
+        _baseValue: 5
+  _maxManaStatType: {fileID: 11400000, guid: 7f495c6ab8dd5a44887531606536aeae, type: 2}
+  <CurrentMana>k__BackingField: 5
+  <StartHandSize>k__BackingField: 4
 --- !u!1 &641914312
 GameObject:
   m_ObjectHideFlags: 0

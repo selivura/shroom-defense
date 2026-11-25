@@ -50,9 +50,10 @@ namespace ShroomDefense.Gameplay
                 _turnManager.FinishActions();
                 return;
             }
-
+            RefreshUnitList();
             if (_currentWaveDuration > 0 && _currentWaveUnits.Count > 0)
             {
+                _turnManager.FinishActions();
                 return;
             }
 
@@ -60,10 +61,11 @@ namespace ShroomDefense.Gameplay
 
             if (CurrentWaveIndex >= LevelData.Waves.Count)
             {
-                Debug.Log("All waves were passed!");
+                Debug.Log("All waves were passed! PLAYER VICTORY!");
                 _turnManager.FinishActions();
                 return;
             }
+            Debug.Log("NEW WAVE!");
 
             _currentWaveDuration = LevelData.Waves[CurrentWaveIndex].WaveDuration;
 
@@ -73,6 +75,7 @@ namespace ShroomDefense.Gameplay
             }
 
             TrySpawningQueuedEnemies();
+            RefreshUnitList();
             _turnManager.FinishActions();
         }
 

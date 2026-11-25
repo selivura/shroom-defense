@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NaughtyAttributes;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
@@ -19,9 +20,10 @@ namespace ShroomDefense.Gameplay
 
         [SerializeField] private int _currentHP = 100;
         [field:SerializeField] public StatController StatController { get; private set; } = new();
+        [SerializeField] [Required] private StatType _maxManaStatType;
         [field:SerializeField] public int CurrentMana { get; private set; } = 999;
-        [field:SerializeField] public int HandSize = 5;
-       
+        [field: SerializeField] public int StartHandSize { get; private set; } = 4;
+
 
         public IReadOnlyCollection<Card> Hand => _cardsInHand.AsReadOnly();
 
@@ -42,9 +44,42 @@ namespace ShroomDefense.Gameplay
 
             _currentDeck = new Deck(_persistentDeck.DraftedDeck.CardPrefabs);
         }
+
+        private void OnEnable()
+        {
+            _turnManager.OnTurnChanged.AddListener(OnTurnChanged);
+        }
+
+        private void OnDisable()
+        {
+            _turnManager.OnTurnChanged.RemoveListener(OnTurnChanged);
+        }
+
+        private void OnTurnChanged(TurnType type)
+        {
+            if(type != TurnType.PlayerAdvance)
+            {
+                return;
+            }
+
+            DrawRandomCardFromDeck();
+            if (_maxManaStatType == null)
+            {
+                throw new NullReferenceException("Max mana stat type is not assigned.");
+            }
+            if (!StatController.GetStatValue(_maxManaStatType, out float maxMana))
+            {
+                throw new NullReferenceException("Max mana stat type is not found in player's stat controller.");
+            }
+            CurrentMana = (int)maxMana;
+        }
+
         private void Start()
         {
-            RefillHand();
+            for (int i = 0; i < StartHandSize; i++)
+            {
+                DrawRandomCardFromDeck();
+            }
         }
 
         public void TakeDamage(Damage damage)
@@ -56,21 +91,6 @@ namespace ShroomDefense.Gameplay
             }
         }
 
-        private void RefillHand()
-        {
-            while(DrawRandomCardFromDeck(false))
-            {
-                // Continue drawing cards until the hand is full or the deck is empty
-            }
-            StringBuilder handContents = new StringBuilder("Hand contents:");
-            foreach (var item in _cardsInHand)
-            {
-                handContents.AppendLine(item.name);
-            }
-            Debug.Log(handContents);
-
-            _handCardsController?.SyncHand(_cardsInHand);
-        }
         /// <summary>
         /// Дать игроку в руку определенную карту
         /// </summary>
@@ -80,7 +100,7 @@ namespace ShroomDefense.Gameplay
         /// <exception cref="NullReferenceException"></exception>
         public bool DrawCard(Card cardPrefab, bool bypassMaxHandSize = false)
         {
-            if (cardPrefab == null || !CanDrawCard(bypassMaxHandSize))
+            if (cardPrefab == null)
             {
                 return false;
             }
@@ -95,13 +115,9 @@ namespace ShroomDefense.Gameplay
             return true;
         }
 
-        public bool CanDrawCardFromDeck(bool bypassMaxHandSize = false)
+        public bool CanDrawCardFromDeck()
         {
-            return CanDrawCard(bypassMaxHandSize) && _currentDeck != null && _currentDeck.CardPrefabs.Count > 0;
-        }
-        public bool CanDrawCard(bool bypassMaxHandSize = false)
-        {
-            return (bypassMaxHandSize || _cardsInHand.Count < HandSize);
+            return _currentDeck != null && _currentDeck.CardPrefabs.Count > 0;
         }
 
         /// <summary>
@@ -109,9 +125,9 @@ namespace ShroomDefense.Gameplay
         /// </summary>
         /// <param name="bypassMaxHandSize"></param>
         /// <returns></returns>
-        public bool DrawRandomCardFromDeck(bool bypassMaxHandSize = false)
+        public bool DrawRandomCardFromDeck()
         {
-            if (!CanDrawCardFromDeck(bypassMaxHandSize))
+            if (!CanDrawCardFromDeck())
             {
                 return false;
             }
@@ -119,7 +135,7 @@ namespace ShroomDefense.Gameplay
             int randomIndex = UnityEngine.Random.Range(0, _currentDeck.CardPrefabs.Count);
 
             Card cardPrefab = _currentDeck.CardPrefabs[randomIndex];
-            if (!DrawCard(cardPrefab, bypassMaxHandSize))
+            if (!DrawCard(cardPrefab))
             {
                 return false;
             }
@@ -152,7 +168,7 @@ namespace ShroomDefense.Gameplay
             card.ExecuteAction(targetData);
             _cardsInHand.RemoveAt(index);
             Destroy(card.gameObject);
-            RefillHand();
+            _handCardsController.SyncHand(_cardsInHand);
             return PlayerCardPlayResult.Success;
         }
 

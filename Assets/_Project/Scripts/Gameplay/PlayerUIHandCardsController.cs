@@ -85,7 +85,6 @@ namespace ShroomDefense.Gameplay
                 }
                 return false;
             }
-
             return true;
         }
 
