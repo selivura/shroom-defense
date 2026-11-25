@@ -1,0 +1,6 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/_Project/UI/UnitPopup.uss?fileID=7433441132597879392&amp;guid=665c11891036a7844bfdfe235c7071b9&amp;type=3#UnitPopup"/>
+    <ui:VisualElement name="PopUp" style="flex-grow: 1;">
+        <ui:Label text="?" name="PopupLabel" class="popup-label"/>
+    </ui:VisualElement>
+</ui:UXML>

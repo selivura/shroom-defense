@@ -127,7 +127,7 @@ namespace ShroomDefense.Gameplay
             return true;
         }
 
-        public bool PlayCardFromHand(int index, CardTargetData targetData)
+        public PlayerCardPlayResult PlayCardFromHand(int index, CardTargetData targetData)
         {
             if(targetData == null)
             {
@@ -135,17 +135,17 @@ namespace ShroomDefense.Gameplay
             }
             if (_turnManager.CurrentTurn != TurnType.PlayerAdvance)
             {
-                return false;
+                return PlayerCardPlayResult.NotPlayerTurn;
             }
             if (index < 0 || index >= _cardsInHand.Count)
             {
-                return false;
+                return PlayerCardPlayResult.Fail;
             }
 
             Card card = _cardsInHand[index];
             if(CurrentMana < card.ManaCost)
             {
-                return false;
+                return PlayerCardPlayResult.NotEnoughMana;
             }
             CurrentMana -= card.ManaCost;
 
@@ -153,7 +153,7 @@ namespace ShroomDefense.Gameplay
             _cardsInHand.RemoveAt(index);
             Destroy(card.gameObject);
             RefillHand();
-            return true;
+            return PlayerCardPlayResult.Success;
         }
 
         public void DropCardFromHand(int index)
@@ -188,5 +188,13 @@ namespace ShroomDefense.Gameplay
         {
             Debug.Log("Player has died. GAME OVER.");
         }
+    }
+
+    public enum PlayerCardPlayResult
+    {
+        Success,
+        NotPlayerTurn,
+        NotEnoughMana,
+        Fail
     }
 }

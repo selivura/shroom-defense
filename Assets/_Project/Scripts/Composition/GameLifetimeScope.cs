@@ -1,5 +1,6 @@
 using NaughtyAttributes;
 using ShroomDefense.Gameplay;
+using ShroomDefense.UI;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
@@ -12,6 +13,7 @@ namespace ShroomDefense.Composition
         [SerializeField][Required] private TurnManager _turnManager;
         [SerializeField][Required] private CardFactory _cardFactory;
         [SerializeField][Required] private UnitFactory _unitFactory;
+        [SerializeField][Required] private PopupFactory _popupFactory;
         [SerializeField][Required] private PlayerController _playerController;
         [SerializeField][Required] private PlayerUIHandCardsController _playerUIHandCardsController;
         [SerializeField][Required] private WaveController _waveController;
@@ -20,6 +22,8 @@ namespace ShroomDefense.Composition
         {
             builder.RegisterInstance(_cardFactory);
             builder.RegisterInstance(_unitFactory);
+            builder.RegisterInstance(_popupFactory);
+
             builder.RegisterInstance(_playerController);
             builder.RegisterInstance(_playerUIHandCardsController);
             builder.RegisterInstance(_waveController);

@@ -1,3 +1,4 @@
+using ShroomDefense.UI;
 using System.Collections.Generic;
 using UnityEngine;
 using VContainer;
@@ -10,16 +11,18 @@ namespace ShroomDefense.Gameplay
         [SerializeField] private HandCardDraggable _draggablePrefab;
         [SerializeField] private float _cardSpacing = 2.5f;
         [SerializeField] private PlayerController _playerController;
+        private PopupFactory _popupFactory;
 
         private readonly List<HandCardDraggable> _draggableCards = new();
         private BattleMap _map;
         private IObjectResolver _resolver;
 
         [Inject]
-        public void Construct(BattleMap map, IObjectResolver resolver)
+        public void Construct(BattleMap map, IObjectResolver resolver, PopupFactory popupFactory)
         {
             _map = map;
             _resolver = resolver;
+            _popupFactory = popupFactory;
         }
 
         public void SyncHand(IReadOnlyCollection<Card> hand)
@@ -66,10 +69,24 @@ namespace ShroomDefense.Gameplay
                 {
                     _draggableCards[cardIndex].CancelDrag();
                 }
+
+                return false;
+            }
+            var playResult = _playerController.PlayCardFromHand(cardIndex, targetData);
+            if (playResult != PlayerCardPlayResult.Success)
+            {
+                if(playResult == PlayerCardPlayResult.NotEnoughMana)
+                {
+                    _popupFactory.Create("Not enough mana!", Color.red, _draggableCards[cardIndex].transform.position);
+                }
+                if (playResult == PlayerCardPlayResult.NotPlayerTurn)
+                {
+                    _popupFactory.Create("Not your turn!", Color.red, _draggableCards[cardIndex].transform.position);
+                }
                 return false;
             }
 
-            return _playerController.PlayCardFromHand(cardIndex, targetData);
+            return true;
         }
 
     }

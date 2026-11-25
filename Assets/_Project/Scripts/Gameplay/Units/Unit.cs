@@ -56,6 +56,10 @@ namespace ShroomDefense.Gameplay
         public UnityEvent OnBeforeExecutingActions;
         public UnityEvent OnAfterExecutingActions;
 
+        public UnityEvent OnDamageAbsorbed;
+        public UnityEvent<int> OnTakeDamage;
+        public UnityEvent<int> OnTakeHeal;
+
 
         [Inject]
         public void Construct(BattleMap map, IObjectResolver resolver)
@@ -104,9 +108,11 @@ namespace ShroomDefense.Gameplay
             if (_isShielded)
             {
                 _isShielded = false; // Щит ломается и поглощает весь урон
+                OnDamageAbsorbed.Invoke();
                 return;
             }
             _currentHP -= damage.Amount;
+            OnTakeDamage.Invoke(damage.Amount);
             if (_currentHP <= 0)
             {
                 Die();
@@ -148,6 +154,7 @@ namespace ShroomDefense.Gameplay
                 return; 
             }
             _currentHP += amount;
+            OnTakeHeal.Invoke(amount);
         }
 
 
