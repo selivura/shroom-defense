@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e30b493a829b7a348af59e09897a92c7, type: 3}
+  m_Name: HeroToolsDatabase
+  m_EditorClassIdentifier: Assembly-CSharp::ShroomDefense.Gameplay.HeroToolsDatabase
+  _tools:
+  - {fileID: 8347277300489375260, guid: b78ab4d2f63c05444b3838569b72b653, type: 3}

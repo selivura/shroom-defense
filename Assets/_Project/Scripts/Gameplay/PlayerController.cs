@@ -3,14 +3,16 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
+using UnityEngine.Rendering.VirtualTexturing;
 using VContainer;
+using VContainer.Unity;
 
 namespace ShroomDefense.Gameplay
 {
     public class PlayerController : MonoBehaviour, IDamageable
     {
         private CardFactory _cardFactory;
-        private PersistentDeck _persistentDeck;
+        private DeckbuildResults _persistentDeck;
         private Deck _currentDeck;
         private List<Card> _cardsInHand = new();
 
@@ -21,6 +23,9 @@ namespace ShroomDefense.Gameplay
         [SerializeField] private int _currentHP = 100;
         [field:SerializeField] public StatController StatController { get; private set; } = new();
         [SerializeField] [Required] private StatType _maxManaStatType;
+        [SerializeField] private HeroTool _tool;
+        private IObjectResolver _resolver;
+
         [field:SerializeField] public int CurrentMana { get; private set; } = 999;
         [field: SerializeField] public int StartHandSize { get; private set; } = 4;
 
@@ -34,8 +39,9 @@ namespace ShroomDefense.Gameplay
 
 
         [Inject]
-        public void Construct(PersistentDeck persDeck, BattleMap map, TurnManager turnManager, CardFactory cardFactory, PlayerUIHandCardsController handCardsController)
+        public void Construct(IObjectResolver resolver, DeckbuildResults persDeck, BattleMap map, TurnManager turnManager, CardFactory cardFactory, PlayerUIHandCardsController handCardsController)
         {
+            _resolver = resolver;
             _persistentDeck = persDeck;
             _battleMap = map;
             _turnManager = turnManager;
@@ -163,9 +169,13 @@ namespace ShroomDefense.Gameplay
             {
                 return PlayerCardPlayResult.NotEnoughMana;
             }
-            CurrentMana -= card.ManaCost;
 
-            card.ExecuteAction(targetData);
+            if (!card.ExecuteAction(targetData))
+            {
+                return PlayerCardPlayResult.Fail;
+            }
+
+            CurrentMana -= card.ManaCost;
             _cardsInHand.RemoveAt(index);
             Destroy(card.gameObject);
             _handCardsController.SyncHand(_cardsInHand);
@@ -198,6 +208,47 @@ namespace ShroomDefense.Gameplay
                 return;
             }
             _turnManager.FinishActions();
+        }
+
+        public void UseTool()
+        {
+            if (_tool == null)
+            {
+                Debug.LogWarning("No tool assigned to player.");
+                return;
+            }
+            if (CurrentMana < _tool.ManaCost)
+            {
+                Debug.LogWarning("Not enough mana to use the tool.");
+                return;
+            }
+            if(_turnManager.CurrentTurn != TurnType.PlayerAdvance)
+            {
+                Debug.LogWarning("Cannot use tool. It's not the player's turn.");
+                return;
+            }
+            _tool.OnSuccessfullyUsed.AddListener(OnToolSuccessfulyUsed);
+            _tool.OnCancelledUse.AddListener(OnToolCancelledUse);
+            _tool.UseTool();
+        }
+
+        public void CreateAndAssignTool(HeroTool toolPrefab)
+        {
+            _tool = _resolver.Instantiate(toolPrefab);
+        }
+
+        private void OnToolSuccessfulyUsed()
+        {
+            CurrentMana -= _tool.ManaCost;
+            _tool.OnSuccessfullyUsed.RemoveListener(OnToolSuccessfulyUsed);
+            _tool.OnSuccessfullyUsed.RemoveListener(OnToolCancelledUse);
+            Debug.Log("COCK");
+        }
+
+        private void OnToolCancelledUse()
+        {
+            _tool.OnSuccessfullyUsed.RemoveListener(OnToolSuccessfulyUsed);
+            _tool.OnSuccessfullyUsed.RemoveListener(OnToolCancelledUse);
         }
 
         private void Die()

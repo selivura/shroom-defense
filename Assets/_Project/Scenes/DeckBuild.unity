@@ -214,6 +214,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShroomDefense.Gameplay.DeckBuilder
   _database: {fileID: 11400000, guid: 872793f6315a0ca458139acab9c0ce90, type: 2}
+  _heroToolsDB: {fileID: 11400000, guid: cd4d929a8db02a445a7cf4b00fce7afa, type: 2}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

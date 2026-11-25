@@ -9,7 +9,7 @@ namespace ShroomDefense.Composition
         protected override void Configure(IContainerBuilder builder)
         {
             builder.Register<InputService>(Lifetime.Singleton);
-            builder.Register<PersistentDeck>(Lifetime.Singleton);
+            builder.Register<DeckbuildResults>(Lifetime.Singleton);
             builder.RegisterEntryPoint<CoreComposer>(Lifetime.Singleton);
         }
     }

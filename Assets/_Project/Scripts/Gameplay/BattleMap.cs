@@ -32,7 +32,7 @@ namespace ShroomDefense.Gameplay
                 for (int y = 0; y < boundSizeY; y++)
                 {
                     var posY = MinBounds.y + y;
-                    var cell = Instantiate(_mapWorldCellPrefab, new Vector3(posX * UnitWorldDistance.x, -posY * UnitWorldDistance.y, 0), Quaternion.identity, transform);
+                    var cell = Instantiate(_mapWorldCellPrefab, new Vector3(transform.position.x + posX * UnitWorldDistance.x, transform.position.y + -posY * UnitWorldDistance.y, 0), Quaternion.identity, transform);
                     cell.MapPosition = new Vector2Int(posX, posY);
                 }
             }
@@ -52,7 +52,7 @@ namespace ShroomDefense.Gameplay
             }
             row.Units[coordinates.x] = unit;
 
-            unit.transform.position = new Vector2(coordinates.x * UnitWorldDistance.x, -coordinates.y * UnitWorldDistance.y);
+            unit.transform.position = new Vector2(transform.position.x + coordinates.x * UnitWorldDistance.x, transform.position.y + -coordinates.y * UnitWorldDistance.y);
         }
 
         public bool ClearCell(Vector2Int position)

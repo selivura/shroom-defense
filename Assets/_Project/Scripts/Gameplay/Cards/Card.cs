@@ -14,7 +14,7 @@ namespace ShroomDefense.Gameplay
         {
             this.battleMap = battleMap;
         }
-        public abstract void ExecuteAction(CardTargetData target);
+        public abstract bool ExecuteAction(CardTargetData target);
         public virtual int GetCurrentCost()
         {
             return ManaCost;
