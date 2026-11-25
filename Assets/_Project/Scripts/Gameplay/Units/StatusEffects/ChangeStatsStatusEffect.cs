@@ -15,6 +15,15 @@ namespace ShroomDefense.Gameplay
         private List<StatType> _statTypes;
         private StatModifier _mod;
         private NewInstanceBehaviour _newInstanceBehaviour;
+
+        /// <summary>
+        /// ОСТОРОЖНО с аргументом modifier, потому что этот StatusEffect МОЖЕТ ИЗМЕНЯТЬ ЕГО ЗНАЧЕНИЯ!
+        /// Если нужно сохранить значения оригинала, лучше сделать копию с помощью <see cref="StatModifier.StatModifier(StatModifier)"/>
+        /// </summary>
+        /// <param name="duration"></param>
+        /// <param name="statTypes"></param>
+        /// <param name="modifier"></param>
+        /// <param name="newInstanceBehaviour"></param>
         public ChangeStatsStatusEffect(int duration, List<StatType> statTypes, StatModifier modifier, NewInstanceBehaviour newInstanceBehaviour = NewInstanceBehaviour.Nothing) : base(duration)
         {
             _statTypes = statTypes;
@@ -39,25 +48,23 @@ namespace ShroomDefense.Gameplay
                     DurationTurns += newInstance.DurationTurns;
                     return true;
                 case NewInstanceBehaviour.StackValue:
-                    if (newInstance is ChangeStatsStatusEffect newChangeStatsEffect)
-                    {
-                        _mod.Value += newChangeStatsEffect._mod.Value;
-                        return true;
-                    }
-                    return false;
+                    StackValue(newInstance as ChangeStatsStatusEffect);
+                    return true;
                 case NewInstanceBehaviour.RefreshDuration:
                     DurationTurns = newInstance.DurationTurns;
                     return true;
                 case NewInstanceBehaviour.StackValueAndRefreshDuration:
                     DurationTurns = newInstance.DurationTurns;
-                    if (newInstance is ChangeStatsStatusEffect newChangeStatsEffect2)
-                    {
-                        _mod.Value += newChangeStatsEffect2._mod.Value;
-                    }
+                    StackValue(newInstance as ChangeStatsStatusEffect);
                     return true;
                 default:
                     return false;
             }
+        }
+
+        private void StackValue(ChangeStatsStatusEffect newChangeStatsEffect)
+        {
+            _mod.Value += newChangeStatsEffect._mod.Value;
         }
     }
 }

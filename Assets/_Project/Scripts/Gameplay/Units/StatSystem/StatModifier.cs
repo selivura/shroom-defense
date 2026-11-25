@@ -26,6 +26,13 @@ namespace ShroomDefense.Gameplay
         {
 
         }
+        public StatModifier(StatModifier copyFrom)
+        {
+            Value = copyFrom.Value;
+            Type = copyFrom.Type;
+            Order = copyFrom.Order;
+            Source = copyFrom.Source;
+        }
         public StatModifier(float value, StatModType type)
         {
             Value = value;

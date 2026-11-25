@@ -22,7 +22,7 @@ namespace ShroomDefense.Gameplay
                     new ChangeStatsStatusEffect(
                         _debuffDuration, 
                         _buffedStatTypes,
-                        _statModifier, 
+                        new StatModifier(_statModifier), 
                         ChangeStatsStatusEffect.NewInstanceBehaviour.StackValueAndRefreshDuration));
             }
             Debug.Log($"{name} debuffed all enemy units (ExecuteAction)");
