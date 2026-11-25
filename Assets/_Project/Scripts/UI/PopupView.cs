@@ -26,7 +26,7 @@ namespace ShroomDefense.UI
         {
             _panelRenderer.RegisterUIReloadCallback(OnUIReolad);
             DOTween.Sequence(transform)
-                .Append(transform.DOMoveY(_moveY, 0.5f))
+                .Append(transform.DOMoveY(transform.position.y + _moveY, 0.5f))
                 .AppendCallback(() => gameObject.SetActive(false));
             
         }
