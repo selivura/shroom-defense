@@ -19,7 +19,7 @@ namespace ShroomDefense.Gameplay
         {
             _player = player;
         }
-        public override async UniTask OnExecuteAction()
+        public override async UniTask DoComponentAction()
         {
             if (!unit.StatController.GetStatValue(_attackStatType, out var statValue))
             {

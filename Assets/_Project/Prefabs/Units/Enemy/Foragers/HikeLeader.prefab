@@ -50,7 +50,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5363612275122745021, guid: 5484524ca6f67d94483125512d1f4c41, type: 3}
       propertyPath: m_Name
-      value: LeaderPohoda
+      value: HikeLeader
       objectReference: {fileID: 0}
     - target: {fileID: 8681361497523067876, guid: 5484524ca6f67d94483125512d1f4c41, type: 3}
       propertyPath: _currentHP
@@ -89,13 +89,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b97e53b728707e46a5ffe250ebf1484, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShroomDefense.Gameplay.HikeLeaderUnitComponent
+  DelayBeforeAction: 0
+  DelayAfterAction: 0.1
+  _autoExecuteActionOn: 1
   _attackStatType: {fileID: 11400000, guid: 083da34afcc63734bbdbce1ac20a85cf, type: 2}
-  _maxHPStatType: {fileID: 11400000, guid: 98a67a176e326fc449d2caca0974326b, type: 2}
   _attackModifier:
-    Value: 0
-    Type: 0
-    Order: 0
-  _maxHealthModifier:
     Value: 0
     Type: 0
     Order: 0

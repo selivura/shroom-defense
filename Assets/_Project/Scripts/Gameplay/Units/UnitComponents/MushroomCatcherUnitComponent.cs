@@ -3,10 +3,10 @@ using UnityEngine;
 
 namespace ShroomDefense.Gameplay
 {
-    [AddComponentMenu("UnitComponents/MushroomCatcherOnAction")]
-    public class MushroomCatcherUnit : UnitComponent
+    [AddComponentMenu("UnitComponents/MushroomCatcher")]
+    public class MushroomCatcherUnitComponent : UnitComponent
     {
-        public override async UniTask OnExecuteAction()
+        public override async UniTask DoComponentAction()
         {
             var enemyUnits = unit.FindAllUnitsOnEnemyField();
 
@@ -14,8 +14,7 @@ namespace ShroomDefense.Gameplay
             {
                 int randomIndex = Random.Range(0, enemyUnits.Count);
                 Unit targetToEat = enemyUnits[randomIndex];
-
-                targetToEat.TakeDamage(new Damage(unit, 9999));
+                targetToEat.Instakill(new Damage(unit, 0));
                 Debug.Log($"Гриболов съел {targetToEat.name}!");
             }
         }

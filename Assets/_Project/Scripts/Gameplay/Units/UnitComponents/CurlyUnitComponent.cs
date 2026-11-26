@@ -1,10 +1,11 @@
+using Cysharp.Threading.Tasks;
 using NaughtyAttributes;
 using System.Linq;
 using UnityEngine;
 
 namespace ShroomDefense.Gameplay
 {
-    [AddComponentMenu("UnitComponents/CurlyOnStart")]
+    [AddComponentMenu("UnitComponents/Curly")]
     public class CurlyUnitComponent : UnitComponent
     {
         [SerializeField] [Required] private StatType _attackStatType;
@@ -16,7 +17,7 @@ namespace ShroomDefense.Gameplay
         [InfoBox("Stat Value will be overriden by the component")]
         [SerializeField] private StatModifier _maxHPModifier;
 
-        protected override void OnComponentInit()
+        public override async UniTask DoComponentAction()
         {
             var allies = unit.FindAllUnitsOnMyTeam()
                 .Where(ally => ally != unit && ally.CurrentHP > 0)

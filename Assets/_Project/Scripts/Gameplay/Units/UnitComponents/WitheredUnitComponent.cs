@@ -1,16 +1,17 @@
+using Cysharp.Threading.Tasks;
 using NaughtyAttributes;
 using System.Linq;
 using UnityEngine;
 
 namespace ShroomDefense.Gameplay
 {
-    [AddComponentMenu("UnitComponents/WitheredOnStart")]
+    [AddComponentMenu("UnitComponents/Withered")]
     public class WitheredUnitComponent : UnitComponent
     {
         [SerializeField][Required] private StatType _attackStatType;
         [SerializeField] private float _attackThreshold = 3f;
 
-        protected override void OnComponentInit()
+        public override async UniTask DoComponentAction()
         {
             var firstEnemy = unit.FindAllUnitsOnEnemyField()
                 .Where(enemy => enemy.Position.y == unit.Position.y && enemy.CurrentHP > 0)
@@ -24,7 +25,7 @@ namespace ShroomDefense.Gameplay
             bool hasAttackStat = firstEnemy.StatController.GetStat(_attackStatType, out Stat attackStat);
             if (!hasAttackStat || attackStat.Value <= _attackThreshold)
             {
-                firstEnemy.TakeDamage(new Damage(unit, 999));
+                firstEnemy.Instakill(new Damage(unit, 0));
             }
         }
     }

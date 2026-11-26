@@ -85,6 +85,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07bef35da5a47ef44b046b6ec9516784, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShroomDefense.Gameplay.FriendlyCollectiveUnitComponent
+  DelayBeforeAction: 0
+  DelayAfterAction: 0.1
+  _autoExecuteActionOn: 2
   _attackStatType: {fileID: 11400000, guid: 083da34afcc63734bbdbce1ac20a85cf, type: 2}
   _maxHPStatType: {fileID: 11400000, guid: 98a67a176e326fc449d2caca0974326b, type: 2}
   _attackModifier:

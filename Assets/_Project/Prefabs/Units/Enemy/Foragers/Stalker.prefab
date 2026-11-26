@@ -89,6 +89,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a20d1356bf6aee42ba506fea6c49d6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShroomDefense.Gameplay.ApplyPlayerStatModifierOnActionUnitComponent
+  DelayBeforeAction: 0
+  DelayAfterAction: 0.1
+  _autoExecuteActionOn: 1
   _buffedStatTypes:
   - {fileID: 11400000, guid: 7f495c6ab8dd5a44887531606536aeae, type: 2}
   _statModifier:

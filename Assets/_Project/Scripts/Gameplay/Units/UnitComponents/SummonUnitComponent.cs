@@ -6,8 +6,8 @@ using VContainer;
 
 namespace ShroomDefense.Gameplay
 {
-    [AddComponentMenu("UnitComponents/SummonOnAction")]
-    public class SummonOnActionUnitComponent : UnitComponent
+    [AddComponentMenu("UnitComponents/Summon")]
+    public class SummonUnitComponent : UnitComponent
     {
         [SerializeField, Required] private Unit _unitPrefab;
 
@@ -20,7 +20,7 @@ namespace ShroomDefense.Gameplay
             _battleMap = battleMap;
         }
 
-        public override async UniTask OnExecuteAction()
+        public override async UniTask DoComponentAction()
         {
             Vector2Int? emptyCell = FindEmptyEnemyCell();
             if (_unitPrefab == null)

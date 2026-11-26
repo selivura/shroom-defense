@@ -3,11 +3,11 @@ using UnityEngine;
 
 namespace ShroomDefense.Gameplay
 {
-    [AddComponentMenu("UnitComponents/HealEveryoneOnMyTeamOnAction")]
+    [AddComponentMenu("UnitComponents/HealEveryoneOnMyTeam")]
     public class HealEveryoneOnMyTeam : UnitComponent
     {
         [SerializeField] private int _healAmount = 1;
-        public override async UniTask OnExecuteAction()
+        public override async UniTask DoComponentAction()
         {
             var allies = unit.FindAllUnitsOnMyTeam();
             foreach (var ally in allies)

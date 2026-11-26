@@ -3,11 +3,11 @@ using UnityEngine;
 
 namespace ShroomDefense.Gameplay
 {
-    [AddComponentMenu("UnitComponents/DamageEveryEnemyOnAction")]
+    [AddComponentMenu("UnitComponents/DamageEveryEnemy")]
     public class DamageEveryEnemyUnitComponent : UnitComponent
     {
         [SerializeField] private int _damageAmount = 1;
-        public override async UniTask OnExecuteAction()
+        public override async UniTask DoComponentAction()
         {
             var enemies = unit.FindAllUnitsOnEnemyField();
             foreach (var enemy in enemies)

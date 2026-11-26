@@ -48,6 +48,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6750255117481278737, guid: 32903612c352ae34495cd5f7fbe15ab8, type: 3}
+      propertyPath: _currentHP
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 8050393210091718728, guid: 32903612c352ae34495cd5f7fbe15ab8, type: 3}
       propertyPath: m_Name
       value: Trutovik
@@ -77,3 +81,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f9bfd4d3971aa3459c965e369099cec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShroomDefense.Gameplay.AddShieldOnStartUnitComponent
+  DelayBeforeAction: 0
+  DelayAfterAction: 0.1
+  _autoExecuteActionOn: 2

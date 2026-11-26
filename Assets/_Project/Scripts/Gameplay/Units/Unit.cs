@@ -6,6 +6,7 @@ using Unity.Properties;
 using UnityEngine;
 using UnityEngine.Events;
 using VContainer;
+using static UnityEngine.Rendering.DebugUI.Table;
 
 namespace ShroomDefense.Gameplay
 {
@@ -98,14 +99,14 @@ namespace ShroomDefense.Gameplay
             foreach (var component in _unitComponents)
             {
                 await UniTask.WaitForSeconds(component.DelayBeforeAction);
-                await component.OnExecuteAction();
+                await component.DoComponentAction();
                 await UniTask.WaitForSeconds(component.DelayAfterAction);
             }
             OnAfterExecutingActions.Invoke();
         }
         public void TakeDamage(Damage damage)
         {
-            if (_isShielded)
+            if (_isShielded & damage.Amount > 0)
             {
                 _isShielded = false; // Щит ломается и поглощает весь урон
                 OnDamageAbsorbed.Invoke();
@@ -118,6 +119,13 @@ namespace ShroomDefense.Gameplay
                 Die();
             }
         }
+
+        public void Instakill(Damage damage)
+        {
+            _currentHP = 0;
+            TakeDamage(damage);
+        }
+
 
         private void Die()
         {
@@ -187,6 +195,19 @@ namespace ShroomDefense.Gameplay
                 }
             }
             return output;
+        }
+
+        public Unit GetUnitAt(Vector2Int position)
+        {
+            if (!_battleMap.ValidatePosition(position))
+            {
+                return null;
+            }
+            if (_battleMap.Rows[position.y].Units.TryGetValue(position.x, out Unit unit))
+            {
+                return unit;
+            }
+            return null;
         }
     }
 }
