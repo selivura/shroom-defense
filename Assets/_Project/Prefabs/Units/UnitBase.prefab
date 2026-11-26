@@ -213,7 +213,7 @@ GameObject:
   - component: {fileID: 6553438655856027687}
   - component: {fileID: 1197741864854228683}
   - component: {fileID: 6733102953670676770}
-  - component: {fileID: 1879837789999974519}
+  - component: {fileID: 6191266182632795761}
   m_Layer: 0
   m_Name: UnitBase
   m_TagString: Untagged
@@ -292,7 +292,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8330f3546af40ff4899e853c52104b39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShroomDefense.Gameplay.StatusEffectsController
---- !u!114 &1879837789999974519
+--- !u!114 &6191266182632795761
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -304,6 +304,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5a16223a5352784597609c27438dc49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShroomDefense.Gameplay.BasicAttackUnitComponent
+  DelayBeforeAction: 0
+  DelayAfterAction: 0.1
+  _autoExecuteActionOn: 1
   _attackStatType: {fileID: 11400000, guid: 083da34afcc63734bbdbce1ac20a85cf, type: 2}
 --- !u!1 &8495099704705664525
 GameObject:

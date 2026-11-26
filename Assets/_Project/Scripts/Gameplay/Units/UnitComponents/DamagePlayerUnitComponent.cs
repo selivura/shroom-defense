@@ -4,8 +4,8 @@ using VContainer;
 
 namespace ShroomDefense.Gameplay
 {
-    [AddComponentMenu("UnitComponents/DamagePlayerOnAction")]
-    public class DamagePlayerOnActionUnitComponent : UnitComponent
+    [AddComponentMenu("UnitComponents/DamagePlayer")]
+    public class DamagePlayerUnitComponent : UnitComponent
     {
         private PlayerController _player;
         [SerializeField] private int _damageAmount = 1;
@@ -16,7 +16,7 @@ namespace ShroomDefense.Gameplay
             _player = player;
         }
 
-        public override async UniTask OnExecuteAction()
+        public override async UniTask DoComponentAction()
         {
             _player.TakeDamage(new Damage(unit, _damageAmount));
             Debug.Log($"{unit.name} deals {_damageAmount} damage TO PLAYER!");

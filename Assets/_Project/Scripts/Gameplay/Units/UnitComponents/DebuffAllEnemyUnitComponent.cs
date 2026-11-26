@@ -4,14 +4,14 @@ using UnityEngine;
 
 namespace ShroomDefense.Gameplay
 {
-    [AddComponentMenu("UnitComponents/DebuffAllEnemyUnitsOnAction")]
-    public class DebuffAllEnemyUnitsUnitComponent : UnitComponent
+    [AddComponentMenu("UnitComponents/DebuffAllEnemyUnits")]
+    public class DebuffAllEnemyUnitsComponent : UnitComponent
     {
         [SerializeField] private List<StatType> _buffedStatTypes;
         [SerializeField] private int _debuffDuration = 1;
 
         [SerializeField] private StatModifier _statModifier = new(-1, StatModType.Flat);
-        public override async UniTask OnExecuteAction()
+        public override async UniTask DoComponentAction()
         {
             var enemies = unit.FindAllUnitsOnEnemyField();
             _statModifier.WithSource(unit);

@@ -93,4 +93,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87ac64c0ac11a514dabd467e8cd73e7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShroomDefense.Gameplay.DamagePlayerOnActionUnitComponent
+  DelayBeforeAction: 0
+  DelayAfterAction: 0.1
+  _autoExecuteActionOn: 1
   _damageAmount: 1

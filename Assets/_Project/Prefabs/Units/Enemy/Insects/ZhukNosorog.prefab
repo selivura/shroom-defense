@@ -50,7 +50,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5363612275122745021, guid: 5484524ca6f67d94483125512d1f4c41, type: 3}
       propertyPath: m_Name
-      value: 'BugNosorog [NE DODELAN]'
+      value: ZhukNosorog
       objectReference: {fileID: 0}
     - target: {fileID: 8681361497523067876, guid: 5484524ca6f67d94483125512d1f4c41, type: 3}
       propertyPath: Faction
@@ -71,5 +71,29 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5363612275122745021, guid: 5484524ca6f67d94483125512d1f4c41, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -7493778136599905711}
   m_SourcePrefab: {fileID: 100100000, guid: 5484524ca6f67d94483125512d1f4c41, type: 3}
+--- !u!1 &3331431571095993347 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5363612275122745021, guid: 5484524ca6f67d94483125512d1f4c41, type: 3}
+  m_PrefabInstance: {fileID: 7229684427564978878}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &-7493778136599905711
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3331431571095993347}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2bddbccd192d17d4b89f00c68b649ee0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ShroomDefense.Assets._Project.Scripts.Gameplay.Units.DropCardOnActionUnitComponent
+  DelayBeforeAction: 0
+  DelayAfterAction: 0.1
+  _autoExecuteActionOn: 1
+  _amountOfCard: 1

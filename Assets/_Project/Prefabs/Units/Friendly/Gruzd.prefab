@@ -81,3 +81,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f9bfd4d3971aa3459c965e369099cec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShroomDefense.Gameplay.AddShieldOnStartUnitComponent
+  DelayBeforeAction: 0
+  DelayAfterAction: 0.1
+  _autoExecuteActionOn: 2

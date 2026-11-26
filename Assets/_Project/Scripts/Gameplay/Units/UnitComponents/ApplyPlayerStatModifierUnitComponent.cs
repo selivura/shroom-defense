@@ -6,8 +6,8 @@ using VContainer;
 
 namespace ShroomDefense.Gameplay
 {
-    [AddComponentMenu("UnitComponents/ApplyPlayerStatModifierOnAction")]
-    public class ApplyPlayerStatModifierOnActionUnitComponent : UnitComponent
+    [AddComponentMenu("UnitComponents/ApplyPlayerStatModifier")]
+    public class ApplyPlayerStatModifierUnitComponent : UnitComponent
     {
         private PlayerController _player;
         [SerializeField] private List<StatType> _buffedStatTypes;
@@ -19,11 +19,11 @@ namespace ShroomDefense.Gameplay
             _player = player;
         }
 
-        public override async UniTask OnExecuteAction()
+        public override async UniTask DoComponentAction()
         {
             _statModifier.WithSource(unit);
             _player.StatController.AddModifierToAllStatsOfTypes(_buffedStatTypes, _statModifier);
-            Debug.Log($"{unit.name} applied stat modifier to player! (ExecuteAction)");
+            Debug.Log($"{unit.name} applied stat modifier to player!");
         }
     }
 }

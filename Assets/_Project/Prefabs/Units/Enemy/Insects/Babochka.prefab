@@ -50,7 +50,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5363612275122745021, guid: 5484524ca6f67d94483125512d1f4c41, type: 3}
       propertyPath: m_Name
-      value: Butterfly
+      value: Babochka
       objectReference: {fileID: 0}
     - target: {fileID: 8681361497523067876, guid: 5484524ca6f67d94483125512d1f4c41, type: 3}
       propertyPath: Faction
@@ -89,4 +89,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61e0f661af72bfe49a678065889277e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShroomDefense.Gameplay.SummonOnActionUnitComponent
+  DelayBeforeAction: 0
+  DelayAfterAction: 0.1
+  _autoExecuteActionOn: 1
   _unitPrefab: {fileID: 2030731902418323802, guid: 1d0384ea0218f514faf9b9c785027337, type: 3}

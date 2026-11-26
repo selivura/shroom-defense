@@ -89,4 +89,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f2bd003a87bdc34798478ab5d041af5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShroomDefense.Gameplay.HealEnemyTeamUnitComponent
+  DelayBeforeAction: 0
+  DelayAfterAction: 0.1
+  _autoExecuteActionOn: 1
   _healAmount: 1

@@ -1,13 +1,13 @@
+using Cysharp.Threading.Tasks;
 using System.Collections.Generic;
 using UnityEngine;
 using VContainer;
 
 namespace ShroomDefense.Gameplay
 {
-    [AddComponentMenu("UnitComponents/BuffUnitAtOffsetOnStart")]
-    public class BuffUnitAtOffsetOnStartUnitComponent : UnitComponent
+    [AddComponentMenu("UnitComponents/BuffUnitAtOffset")]
+    public class BuffUnitAtOffseUnitComponent : UnitComponent
     {
-        private BattleMap _battleMap;
         [SerializeField] private List<StatType> _buffedStatTypes;
 
         [Tooltip("Задавать с перспективы игрока, если компонент будет висеть на враге, X будет инвертирован")]
@@ -15,12 +15,7 @@ namespace ShroomDefense.Gameplay
 
         [SerializeField] private StatModifier _statModifier = new(2, StatModType.Flat);
 
-        [Inject]
-        public void Construct(BattleMap battleMap)
-        {
-            _battleMap = battleMap;
-        }
-        protected override void OnComponentInit()
+        public override async UniTask DoComponentAction()
         {
             Vector2Int buffPos = unit.Position;
             if(unit.Position.x < 0)
@@ -31,17 +26,13 @@ namespace ShroomDefense.Gameplay
             {
                 buffPos += new Vector2Int(-_relativeOffset.x, _relativeOffset.y);
             }
-            if (!_battleMap.ValidatePosition(buffPos))
-            {
-                return;
-            }
+            Unit targetUnit = unit.GetUnitAt(buffPos);
 
-            var rowUnits = _battleMap.Rows[buffPos.y].Units;
-            if (!rowUnits.TryGetValue(buffPos.x, out Unit targetUnit))
+            if (targetUnit == null || targetUnit.CurrentHP <= 0)
             {
                 return;
             }
-            if ((targetUnit.Position.x < 0) != (unit.Position.x < 0) || targetUnit.CurrentHP <= 0)
+            if ((targetUnit.Position.x < 0) != (unit.Position.x < 0))
             {
                 return;
             }

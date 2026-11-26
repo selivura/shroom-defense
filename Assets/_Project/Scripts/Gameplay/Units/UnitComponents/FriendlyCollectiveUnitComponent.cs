@@ -1,10 +1,11 @@
+using Cysharp.Threading.Tasks;
 using NaughtyAttributes;
 using System.Linq;
 using UnityEngine;
 
 namespace ShroomDefense.Gameplay
 {
-    [AddComponentMenu("UnitComponents/FriendlyCollectiveOnStart")]
+    [AddComponentMenu("UnitComponents/FriendlyCollective")]
     public class FriendlyCollectiveUnitComponent : UnitComponent
     {
         [SerializeField][Required] private StatType _attackStatType;
@@ -16,7 +17,7 @@ namespace ShroomDefense.Gameplay
         [InfoBox("Stat Value will be overriden by the component")]
         [SerializeField] private StatModifier _maxHPModifier = new(0, StatModType.Flat);
 
-        protected override void OnComponentInit()
+        public override async UniTask DoComponentAction()
         {
             int otherMushroomsCount = unit.FindAllUnitsOnMyTeam().Count(ally => ally != unit);
 
